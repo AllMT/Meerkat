@@ -1,0 +1,12 @@
+[
+  {
+    "contract": "NeoToken",
+    "operation": "transfer",
+    "args": [
+      "@bob",
+      "0x3db950e8decc477c2e0e0d06e5bae0bb4b022fd7",
+      10,
+      "0x0e7154c8ec649c3c2c5be4d8295ed4adfdec24d1517cbfda8e2e6e476d8f61b7"
+    ]
+  }
+]

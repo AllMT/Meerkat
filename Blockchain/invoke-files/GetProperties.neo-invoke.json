@@ -1,0 +1,9 @@
+[
+  {
+    "contract": "T3",
+    "operation": "getTokenProperties",
+    "args": [
+      "0xa675e141dd655b87c69df24b852094b15cd36a403801587fd4652617a40773ef"
+    ]
+  }
+]

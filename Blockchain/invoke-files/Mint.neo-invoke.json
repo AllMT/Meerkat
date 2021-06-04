@@ -1,0 +1,20 @@
+[
+  {
+    "contract": "T3",
+    "operation": "mintToken",
+    "args": [
+      "{\"name\":\"T3NFT2\", \"description\": \"empty NFT\"}"
+    ]
+  },
+  {
+    "contract": "T3",
+    "operation": "mintToken",
+    "args": [
+      "{\"name\":\"T3NFT\", \"description\": \"my very first test NFT\", \"image\": \"https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500\", \"tokenURI\": \"\"}"
+    ]
+  },
+  {
+    "contract": "T3",
+    "operation": "getAllTokenIds"
+  }
+]

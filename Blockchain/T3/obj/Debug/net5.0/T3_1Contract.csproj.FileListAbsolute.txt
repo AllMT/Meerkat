@@ -1,0 +1,12 @@
+C:\Users\S\source\repos\Blockchain\T3\bin\Debug\net5.0\T3Contract.deps.json
+C:\Users\S\source\repos\Blockchain\T3\bin\Debug\net5.0\T3Contract.dll
+C:\Users\S\source\repos\Blockchain\T3\bin\Debug\net5.0\ref\T3Contract.dll
+C:\Users\S\source\repos\Blockchain\T3\bin\Debug\net5.0\T3Contract.pdb
+C:\Users\S\source\repos\Blockchain\T3\obj\Debug\net5.0\T3Contract.csprojAssemblyReference.cache
+C:\Users\S\source\repos\Blockchain\T3\obj\Debug\net5.0\T3Contract.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\S\source\repos\Blockchain\T3\obj\Debug\net5.0\T3Contract.AssemblyInfoInputs.cache
+C:\Users\S\source\repos\Blockchain\T3\obj\Debug\net5.0\T3Contract.AssemblyInfo.cs
+C:\Users\S\source\repos\Blockchain\T3obj\Debug\net5.0\T3Contract.csproj.CoreCompileInputs.cache
+C:\Users\S\source\repos\Blockchain\T3\obj\Debug\net5.0\T3Contract.dll
+C:\Users\S\source\repos\Blockchain\T3\obj\Debug\net5.0\ref\T3Contract.dll
+C:\Users\S\source\repos\Blockchain\T3\obj\Debug\net5.0\T3Contract.pdb

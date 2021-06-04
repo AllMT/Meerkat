@@ -1,0 +1,21 @@
+[
+  {
+    "contract": "T3",
+    "operation": "addToMarket",
+    "args": [
+      "0x0e7154c8ec649c3c2c5be4d8295ed4adfdec24d1517cbfda8e2e6e476d8f61b7",
+      "{\"price\": \"10\",\"marketType\":\"Sale\", \"purchaseType\":\"Neo\"}"
+    ]
+  },
+  {
+    "contract": "T3",
+    "operation": "getAllMarketTokenIds"
+  },
+  {
+    "contract": "T3",
+    "operation": "tokenOwner",
+    "args": [
+      "0x0e7154c8ec649c3c2c5be4d8295ed4adfdec24d1517cbfda8e2e6e476d8f61b7"
+    ]
+  }
+]
