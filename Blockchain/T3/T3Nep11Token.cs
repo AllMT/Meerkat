@@ -10,7 +10,6 @@ using T3.Models;
 
 namespace T3
 {
-    [ContractPermission("*", "onNEP11Payment")]
     public partial class T3Contract : SmartContract
     {
         public delegate void OnTransferDelegate(UInt160 from, UInt160 to, BigInteger amount, ByteString tokenId);
@@ -81,12 +80,14 @@ namespace T3
                 DeleteTokenFromMarket(tokenId);
                 UpdateBalance(from, tokenId, -1);
                 UpdateBalance(to, tokenId, +1);
+                RemoveAllWhitelist(tokenId);
+                SetWhitelist(to, tokenId);
             }
             PostTransfer(from, to, tokenId, data);
             return true;
         }
 
-        protected static void Burn(ByteString tokenId)
+        public static void Burn(ByteString tokenId)
         {
             var token = ValueOf(tokenId);
             DeleteTokenFromStorage(tokenId);
@@ -94,6 +95,17 @@ namespace T3
             UpdateBalance(token.Owner, tokenId, -1);
             UpdateTotalNFTSupply(-1);
             PostTransfer(token.Owner, null, tokenId, null);
+        }
+
+        public static ByteString NewTokenId()
+        {
+            StorageContext context = Storage.CurrentContext;
+            byte[] key = new byte[] { 0x02 };
+            ByteString id = Storage.Get(context, key);
+            Storage.Put(context, key, (BigInteger)id + 1);
+            ByteString data = Runtime.ExecutingScriptHash;
+            if (id is not null) data += id;
+            return CryptoLib.Sha256(data);
         }
     }
 }

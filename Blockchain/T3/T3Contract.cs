@@ -17,9 +17,9 @@ namespace T3
     [ContractPermission("*", "onNEP11Payment")]
     public partial class T3Contract : SmartContract
     {
-        public static bool MintToken(string properties)
+        public static bool MintToken(ByteString tokenId, string properties)
         {
-            Mint(NewTokenId(), GetTokenState(properties));
+            Mint(tokenId, GetTokenState(properties));
 
             return true;
         }
@@ -39,7 +39,8 @@ namespace T3
                         Name = propertiesMap.HasKey("name") ?  propertiesMap["name"] : null,
                         Description = propertiesMap.HasKey("description") ?  propertiesMap["description"] : null,
                         Image = propertiesMap.HasKey("image") ?  propertiesMap["image"] : null,
-                        TokenURI = propertiesMap.HasKey("tokenURI") ?  propertiesMap["tokenURI"] : null
+                        TokenURI = propertiesMap.HasKey("tokenURI") ?  propertiesMap["tokenURI"] : null,
+                        LockedContent = propertiesMap.HasKey("lockedContent") ?  propertiesMap["lockedContent"] : null,
                     }
                 }
             };
@@ -86,6 +87,8 @@ namespace T3
 
         public static string GetTokenProperties(ByteString tokenId)
         {
+            var tx = (Transaction)Runtime.ScriptContainer;
+            
             var token = ValueOf(tokenId);
 
             var map = new Map<string, object>();
@@ -93,6 +96,11 @@ namespace T3
             map["description"] = token.Value.TokenData.Description;
             map["image"] = token.Value.TokenData.Image;
             map["tokenURI"] = token.Value.TokenData.TokenURI;
+
+            if(IsWhitelisted(tx.Sender, tokenId))
+            {
+                map["lockedContent"] = token.Value.TokenData.LockedContent;
+            }
 
             if(token.Value.MarketData != null)
             {
@@ -113,7 +121,8 @@ namespace T3
             Storage.Put(Storage.CurrentContext, nameof(T3Contract), tx.Sender);
         }
 
-        public static bool Destroy() 
+        [DisplayName("_destroy")]
+        public bool Destroy() 
         {
             var tx = (Transaction)Runtime.ScriptContainer;
             var owner = Storage.Get(Storage.CurrentContext, nameof(T3Contract));

@@ -1,9 +1,9 @@
 [
   {
     "contract": "T3",
-    "operation": "testMethod",
+    "operation": "removeAllFromWhiteList",
     "args": [
-      "{\"0xf3c84103e0734a4e31d9b9c0d1e741ae73029e07a9f683c98a5f738f340ff3a4\"}"
+      "0x22"
     ]
   }
 ]

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9ARocSlfA8Z/ohrH/kNaWKfG0iWjNcw86WzENu39SPjco0/5Ge8G94iD5NqM6QnWEg7fCSozbedP/0LHK3AW4Q==",
+  "dgSpecHash": "nhTSgj3oJ8+eIFDWcW8hmishQPkgzUAqpSb1YK+PXbtaN5ahjFr/OvbZUp17Tm8U42DZerTrgJ7JrfVftgnBvg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\S\\source\\repos\\Blockchain\\T3\\T3Contract.csproj",
+  "projectFilePath": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\S\\.nuget\\packages\\neo.smartcontract.framework\\3.0.0-rc2\\neo.smartcontract.framework.3.0.0-rc2.nupkg.sha512"
   ],

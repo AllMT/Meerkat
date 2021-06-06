@@ -6,5 +6,6 @@ namespace T3.Models
         public string Description;
         public string Image;
         public string TokenURI;
+        public string LockedContent;
     }
 }

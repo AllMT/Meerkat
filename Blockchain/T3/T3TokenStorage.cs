@@ -26,7 +26,7 @@ namespace T3
             return TokenStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
         }
 
-        protected static ByteString OwnerOf(ByteString tokenId)
+        public static ByteString OwnerOf(ByteString tokenId)
         {
             var token = (TokenState)StdLib.Deserialize(GetTokenFromStorage(tokenId));
 

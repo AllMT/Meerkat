@@ -12,7 +12,7 @@ namespace T3
     
     public partial class T3Contract : SmartContract
     {
-        public static UInt160 TestMethod(object data)
+        public static UInt160 TestMethod()
         {
             return Runtime.ExecutingScriptHash;
         }
@@ -59,6 +59,8 @@ namespace T3
             UpdateBalance(oldOwner, tokenId, -1);
             UpdateBalance(token.Owner, tokenId, +1);
             PostTransfer(oldOwner, token.Owner, tokenId, null);
+            RemoveAllWhitelist(tokenId);
+            SetWhitelist(from, tokenId);
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\S\\source\\repos\\Blockchain\\T3\\T3Contract.csproj": {}
+    "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj": {}
   },
   "projects": {
-    "C:\\Users\\S\\source\\repos\\Blockchain\\T3\\T3Contract.csproj": {
+    "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\S\\source\\repos\\Blockchain\\T3\\T3Contract.csproj",
+        "projectUniqueName": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj",
         "projectName": "T3Contract",
-        "projectPath": "C:\\Users\\S\\source\\repos\\Blockchain\\T3\\T3Contract.csproj",
+        "projectPath": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj",
         "packagesPath": "C:\\Users\\S\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\S\\source\\repos\\Blockchain\\T3\\obj\\",
+        "outputPath": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

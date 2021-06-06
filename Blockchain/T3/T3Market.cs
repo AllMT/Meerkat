@@ -23,11 +23,14 @@ namespace T3
             return MarketStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
         }
 
-        public static void AddToMarket(ByteString TokenId, string options)
+        public static void Market(ByteString TokenId, string options)
         {
             var tx = (Transaction)Runtime.ScriptContainer;
 
-            ValidateTokenOwner(tx.Sender, TokenId);
+            if(IsTokenOwnerTheSender(TokenId))
+            {
+                throw new Exception("The token does not belong to you");
+            }
 
             var marketData = GetMarketData(options);
             
@@ -39,17 +42,6 @@ namespace T3
 
             UpdateTotalTokensOnMarket(+1);
         }
-
-        private static void ValidateTokenOwner(UInt160 sender, ByteString TokenID)
-        {
-            var owner = OwnerOf(TokenID);
-
-            if(sender != owner)
-            {
-                throw new Exception("The token does not belong to you");
-            }
-        }
-
 
         private static MarketData GetMarketData(string options)
         {

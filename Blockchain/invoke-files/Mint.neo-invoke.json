@@ -3,7 +3,7 @@
     "contract": "T3",
     "operation": "mintToken",
     "args": [
-      "{\"name\":\"T3NFT2\", \"description\": \"empty NFT\"}"
+      "{\"name\":\"A and then B\", \"description\": \"B and then C\"}"
     ]
   },
   {
