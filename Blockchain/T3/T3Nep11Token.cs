@@ -16,6 +16,10 @@ namespace T3
         [DisplayName("Transfer")]
         public static event OnTransferDelegate OnTransfer;
 
+        public delegate void OnMintDelegate(UInt160 from, ByteString tokenId);
+        [DisplayName("Mint")]
+        public static event OnMintDelegate OnMint;
+
 
         protected const string ACCOUNT_TOKEN_MAP = "T3ACCOUNTMAP";
         protected static StorageMap AccountStorageMap() => new StorageMap(Storage.CurrentContext, ACCOUNT_TOKEN_MAP);
@@ -46,6 +50,7 @@ namespace T3
         protected static void Mint(ByteString tokenId, TokenState token)
         {
             AddTokenToStorage(tokenId, StdLib.Serialize(token));
+            OnMint(token.Owner, tokenId);
 
             UpdateBalance(token.Owner, tokenId, +1);
             UpdateTotalNFTSupply(+1);

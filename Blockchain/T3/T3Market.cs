@@ -12,6 +12,10 @@ namespace T3
     
     public partial class T3Contract : SmartContract
     {
+        public delegate void OnMarketDelegate(ByteString tokenId);
+        [DisplayName("Market")]
+        public static event OnMarketDelegate OnMarket;
+
         private static readonly string MARKET_MAP = "T3MARKETMAP";
         protected static StorageMap MarketStorageMap() => new StorageMap(Storage.CurrentContext, MARKET_MAP);
 
@@ -39,6 +43,7 @@ namespace T3
 
             AddTokenToStorage(TokenId, StdLib.Serialize(token));
             AddTokenToMarket(TokenId);
+            OnMarket(TokenId);
 
             UpdateTotalTokensOnMarket(+1);
         }
