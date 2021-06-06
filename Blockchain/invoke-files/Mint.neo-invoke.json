@@ -3,6 +3,7 @@
     "contract": "T3",
     "operation": "mintToken",
     "args": [
+      "0x11cb3f1be79760e0d358f1ac3a3c071c125082c9d9ecf51c5669b1b62ad27af5",
       "{\"name\":\"A and then B\", \"description\": \"B and then C\"}"
     ]
   },
@@ -16,5 +17,9 @@
   {
     "contract": "T3",
     "operation": "getAllTokenIds"
+  },
+  {
+    "contract": "T3",
+    "operation": "newTokenId"
   }
 ]

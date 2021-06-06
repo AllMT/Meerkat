@@ -15,16 +15,9 @@ namespace T3
     {
         private static readonly string TotalNFTOnMarketKey = "TotalNFTOnMarketKey";
         private static readonly string TotalNFTSupplyKey = "TotalNFTSupplyKey";
-        private static string TOTALSUPPLY_MAP = "T3NFTSupply";
-        private static string NFT_MAP = "T3NFT";
+        private static string NFT_SUPPLY_MAP = "T3NFTSupply";
 
-        public static string Symbol() => "SIM";
-
-        public static byte Decimals() => 0;
-
-        private static StorageMap TotalSupplyMap() => new StorageMap(Storage.CurrentContext, TOTALSUPPLY_MAP);
-
-        private static StorageMap TotalNFTByOwnerStorage() => new StorageMap(Storage.CurrentContext, NFT_MAP);
+        private static StorageMap T3SupplyMap() => new StorageMap(Storage.CurrentContext, NFT_SUPPLY_MAP);
 
         public static BigInteger BalanceOf(UInt160 owner)
         {
@@ -32,34 +25,34 @@ namespace T3
             {
                 throw new Exception("The argument \"owner\" is invalid.");
             }
-            return (BigInteger)TotalNFTByOwnerStorage().Get(owner);
+            return (BigInteger)T3SupplyMap().Get(owner);
         }
 
         protected static void UpdateTotalNFTSupply(BigInteger increment)
         {
-            var totalSupply = (BigInteger)TotalSupplyMap().Get(TotalNFTSupplyKey);
+            var totalSupply = (BigInteger)T3SupplyMap().Get(TotalNFTSupplyKey);
             totalSupply += increment;
 
             if(totalSupply >= 0)
             {
-                TotalSupplyMap().Put(TotalNFTSupplyKey, totalSupply += increment);
+                T3SupplyMap().Put(TotalNFTSupplyKey, totalSupply += increment);
             }
         }
 
         protected static void UpdateTotalTokensOnMarket(BigInteger increment)
         {
-            var totalTokensOnMarket = (BigInteger)TotalSupplyMap().Get(TotalNFTOnMarketKey);
+            var totalTokensOnMarket = (BigInteger)T3SupplyMap().Get(TotalNFTOnMarketKey);
             totalTokensOnMarket += increment;
 
             if(totalTokensOnMarket >= 0)
             {
-                TotalSupplyMap().Put(TotalNFTOnMarketKey, totalTokensOnMarket);
+                T3SupplyMap().Put(TotalNFTOnMarketKey, totalTokensOnMarket);
             }
         }
 
         protected static bool UpdateOwnersBalance(UInt160 owner, BigInteger increment)
         {
-            var balance = (BigInteger)TotalNFTByOwnerStorage().Get(owner);
+            var balance = (BigInteger)T3SupplyMap().Get(owner);
 
             balance += increment;
             
@@ -70,11 +63,11 @@ namespace T3
 
             if (balance.IsZero)
             {
-                TotalNFTByOwnerStorage().Delete(owner);
+                T3SupplyMap().Delete(owner);
             }
             else
             {
-                TotalNFTByOwnerStorage().Put(owner, balance);    
+                T3SupplyMap().Put(owner, balance);    
             }
             return true;
         }

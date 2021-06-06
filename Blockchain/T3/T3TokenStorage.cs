@@ -26,17 +26,29 @@ namespace T3
             return TokenStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
         }
 
-        public static ByteString OwnerOf(ByteString tokenId)
+        public static UInt160 OwnerOf(ByteString tokenId)
         {
-            var token = (TokenState)StdLib.Deserialize(GetTokenFromStorage(tokenId));
+            var token = GetTokenFromStorage(tokenId);
+            if(token == null)
+            {
+                throw new Exception("Token does not exist");
+            }
 
-            return token.Owner;
+            var tokenState = (TokenState)StdLib.Deserialize(token);
+
+            return tokenState.Owner;
         }
 
         protected static TokenState ValueOf(ByteString tokenId)
         {
-            var token = (TokenState)StdLib.Deserialize(GetTokenFromStorage(tokenId));
-            return token;
+            var token = GetTokenFromStorage(tokenId);
+            if(token == null)
+            {
+                throw new Exception("Token does not exist");
+            }
+
+            var tokenState = (TokenState)StdLib.Deserialize(token);
+            return tokenState;
         }
     }
 }

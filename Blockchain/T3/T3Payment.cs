@@ -9,7 +9,6 @@ using Neo.SmartContract.Framework.Native;
 
 namespace T3
 {
-    
     public partial class T3Contract : SmartContract
     {
         public static UInt160 TestMethod()
@@ -45,7 +44,6 @@ namespace T3
             {
                 throw new Exception("Wrong calling script hash");
             }
-
 
             var oldOwner = token.Owner;
             token.Owner = from;
