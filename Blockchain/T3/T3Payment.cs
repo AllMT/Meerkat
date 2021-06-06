@@ -17,11 +17,6 @@ namespace T3
             return Runtime.ExecutingScriptHash;
         }
 
-        public static ByteString TokenOwner(ByteString tokenId)
-        {
-            return OwnerOf(tokenId);
-        }
-
         public static void OnNEP17Payment(UInt160 from, BigInteger amount, object data)
         {
             var tokenId = (ByteString)data;

@@ -111,34 +111,5 @@ namespace T3
 
             return StdLib.JsonSerialize(map);
         }
-
-        [DisplayName("_deploy")]
-        public void Deploy(object data, bool update)
-        {
-            if (update) return;
-
-            var tx = (Transaction)Runtime.ScriptContainer;
-            Storage.Put(Storage.CurrentContext, nameof(T3Contract), tx.Sender);
-        }
-
-        [DisplayName("_destroy")]
-        public bool Destroy() 
-        {
-            var tx = (Transaction)Runtime.ScriptContainer;
-            var owner = Storage.Get(Storage.CurrentContext, nameof(T3Contract));
-
-            if (!Runtime.CheckWitness(tx.Sender)) 
-            {
-                return false;
-            }
-
-            if (tx.Sender != owner)
-            {
-                return false;
-            }
-
-            ContractManagement.Destroy();
-            return true;
-        }
     }
 }
