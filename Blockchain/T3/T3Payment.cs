@@ -32,11 +32,7 @@ namespace T3
                 throw new Exception("Not enough payment");
             }
             
-            if (Runtime.CallingScriptHash == NEO.Hash && token.Value.MarketData.PurchaseType == PurchaseType.NEO)
-            {
-                NEO.Transfer(Runtime.ExecutingScriptHash, token.Owner, amount, null);
-            }
-            else if (Runtime.CallingScriptHash == GAS.Hash && token.Value.MarketData.PurchaseType == PurchaseType.GAS)
+            if (Runtime.CallingScriptHash == GAS.Hash && token.Value.MarketData.PurchaseType == PurchaseType.GAS)
             {
                 GAS.Transfer(Runtime.ExecutingScriptHash, token.Owner, amount, null);
             }

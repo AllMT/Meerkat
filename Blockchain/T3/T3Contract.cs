@@ -10,9 +10,9 @@ using T3.Models;
 namespace T3
 {
     [DisplayName("T3")]
-    [ManifestExtra("Author", "Your name")]
-    [ManifestExtra("Email", "your@address.invalid")]
-    [ManifestExtra("Description", "Describe your contract...")]
+    [ManifestExtra("Author", "AllMT")]
+    [ManifestExtra("Email", "andrewxm27@gmail.com")]
+    [ManifestExtra("Description", "NFT contract")]
     [ContractPermission("*", "onNEP17Payment")]
     [ContractPermission("*", "onNEP11Payment")]
     public partial class T3Contract : SmartContract
