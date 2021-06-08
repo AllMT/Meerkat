@@ -27,25 +27,48 @@ namespace T3
             return MarketStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
         }
 
-        public static void Market(ByteString TokenId, string options)
+        public static void UpdateTokenOnMarket(ByteString TokenId, string options)
         {
-            var tx = (Transaction)Runtime.ScriptContainer;
+            VerifyTokenBelongsToSender(TokenId);
+            VerifyTokenIsOnMarket(TokenId);
+            UpdateTokenMarketData(TokenId, options);
+        }
 
-            if(IsTokenOwnerTheSender(TokenId))
-            {
-                throw new Exception("The token does not belong to you");
-            }
-
-            var marketData = GetMarketData(options);
+        protected static void AddToMarket(ByteString TokenId, string options)
+        {
+            VerifyTokenBelongsToSender(TokenId);
+            UpdateTokenMarketData(TokenId, options);
             
-            var token = ValueOf(TokenId);
-            token.Value.MarketData = marketData;
-
-            AddTokenToStorage(TokenId, StdLib.Serialize(token));
             AddTokenToMarket(TokenId);
             OnMarket(TokenId);
 
             UpdateTotalTokensOnMarket(+1);
+        }
+
+        private static void UpdateTokenMarketData(ByteString TokenId, string options)
+        {
+            var marketData = GetMarketData(options);
+            
+            var token = ValueOf(TokenId);
+            token.Value.MarketData = marketData;
+            AddTokenToStorage(TokenId, StdLib.Serialize(token));
+        }
+
+        private static void VerifyTokenBelongsToSender(ByteString tokenId)
+        {            
+            if(IsTokenOwnerTheSender(tokenId))
+            {
+                throw new Exception("The token does not belong to you");
+            }
+        }
+
+        private static void VerifyTokenIsOnMarket(ByteString tokenId)
+        {
+            var existingToken = MarketStorageMap().Get(tokenId);
+            if(existingToken == null)
+            {
+                throw new Exception("Can not update a token which is not on the market");
+            }
         }
 
         private static MarketData GetMarketData(string options)
@@ -64,9 +87,9 @@ namespace T3
                 throw new Exception("Not a valid price");
             }
 
-            if(options["marketType"] != MarketType.SALE  && options["marketType"] != MarketType.AUCTION)
+            if(options["listingType"] != ListingType.SALE  && options["listingType"] != ListingType.AUCTION)
             {
-                throw new Exception("Not a valid market type");
+                throw new Exception("Not a valid listing type");
             }
 
             if(options["purchaseType"] != PurchaseType.NEO && options["purchaseType"] != PurchaseType.GAS)
@@ -80,7 +103,7 @@ namespace T3
             return new MarketData()
             {
                 Price = BigInteger.Parse(options["price"]),
-                MarketType = options["marketType"],
+                ListingType = options["listingType"],
                 PurchaseType = options["purchaseType"]
             };
         }

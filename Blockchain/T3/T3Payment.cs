@@ -16,40 +16,55 @@ namespace T3
             return Runtime.ExecutingScriptHash;
         }
 
-        public static void OnNEP17Payment(UInt160 from, BigInteger amount, object data)
+        public static void OnNEP17Payment(UInt160 from, BigInteger amount, object[] data)
         {
-            var tokenId = (ByteString)data;
-
-            var mToken = MarketStorageMap().Get(tokenId);
-            if(mToken == null)
+            if((string)data[0] == "AddToMarket")
             {
-                throw new Exception("Token is not for sale");
+                AddToMarket((ByteString)data[1], (string)data[2]);
             }
+            else if((string)data[0] == "PurchaseToken")
+            {
+                var tokenId = (ByteString)data[1];
 
-            var token = ValueOf(tokenId);
-            if(amount < token.Value.MarketData.Price)
-            {
-                throw new Exception("Not enough payment");
-            }
-            
-            if (Runtime.CallingScriptHash == GAS.Hash && token.Value.MarketData.PurchaseType == PurchaseType.GAS)
-            {
-                GAS.Transfer(Runtime.ExecutingScriptHash, token.Owner, amount, null);
+                var mToken = MarketStorageMap().Get(tokenId);
+                if(mToken == null)
+                {
+                    throw new Exception("Token is not for sale");
+                }
+
+                var token = ValueOf(tokenId);
+                if(amount < token.Value.MarketData.Price)
+                {
+                    throw new Exception("Not enough payment");
+                }
+
+                if (Runtime.CallingScriptHash == NEO.Hash && token.Value.MarketData.PurchaseType == PurchaseType.NEO)
+                {
+                    NEO.Transfer(Runtime.ExecutingScriptHash, token.Owner, amount, null);
+                }
+                else if (Runtime.CallingScriptHash == GAS.Hash && token.Value.MarketData.PurchaseType == PurchaseType.GAS)
+                {
+                    GAS.Transfer(Runtime.ExecutingScriptHash, token.Owner, amount, null);
+                }
+                else
+                {
+                    throw new Exception("Wrong calling script hash");
+                }
+
+                var oldOwner = token.Owner;
+                token.Owner = from;
+                AddTokenToStorage(tokenId, StdLib.Serialize(token));
+                DeleteTokenFromMarket(tokenId);
+                UpdateBalance(oldOwner, tokenId, -1);
+                UpdateBalance(token.Owner, tokenId, +1);
+                PostTransfer(oldOwner, token.Owner, tokenId, null);
+                RemoveAllWhitelist(tokenId);
+                SetWhitelist(from, tokenId);
             }
             else
             {
-                throw new Exception("Wrong calling script hash");
+                throw new Exception("Not a valid option");
             }
-
-            var oldOwner = token.Owner;
-            token.Owner = from;
-            AddTokenToStorage(tokenId, StdLib.Serialize(token));
-            DeleteTokenFromMarket(tokenId);
-            UpdateBalance(oldOwner, tokenId, -1);
-            UpdateBalance(token.Owner, tokenId, +1);
-            PostTransfer(oldOwner, token.Owner, tokenId, null);
-            RemoveAllWhitelist(tokenId);
-            SetWhitelist(from, tokenId);
         }
     }
 }

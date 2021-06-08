@@ -105,7 +105,7 @@ namespace T3
             if(token.Value.MarketData != null)
             {
                 map["price"] = token.Value.MarketData.Price;
-                map["marketType"] = token.Value.MarketData.MarketType;
+                map["listingType"] = token.Value.MarketData.ListingType;
                 map["purchaseType"] = token.Value.MarketData.PurchaseType;
             }
 

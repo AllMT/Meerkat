@@ -13,7 +13,6 @@ namespace T3
     public partial class T3Contract : SmartContract
     {
         protected const string T3_FEE_KEY = "T3FEE";
-        protected const string T3_OWNER_KEY = "T3OWNER";
         protected const string T3_MAP = "T3MAP";
         protected static StorageMap T3Map() => new StorageMap(Storage.CurrentContext, T3_MAP);
 
@@ -27,13 +26,13 @@ namespace T3
             if (update) return;
 
             var tx = (Transaction)Runtime.ScriptContainer;
-            T3Map().Put(T3_OWNER_KEY, tx.Sender);
+            Storage.Put(Storage.CurrentContext, nameof(T3Contract), tx.Sender);
         }
 
         public bool Destroy() 
         {
             var tx = (Transaction)Runtime.ScriptContainer;
-            var owner = T3Map().Get(T3_OWNER_KEY);
+            var owner = Storage.Get(Storage.CurrentContext, nameof(T3Contract));
 
             if (tx.Sender == owner)
             {
@@ -46,7 +45,7 @@ namespace T3
         public bool Update(ByteString nefFile, string manifest)
         {
             var tx = (Transaction)Runtime.ScriptContainer;
-            var owner = T3Map().Get(T3_OWNER_KEY);
+            var owner = Storage.Get(Storage.CurrentContext, nameof(T3Contract));
 
             if (tx.Sender == owner)
             {
@@ -59,7 +58,7 @@ namespace T3
         public static bool SetFee(BigInteger amount)
         {
             var tx = (Transaction)Runtime.ScriptContainer;
-            var owner = T3Map().Get(T3_OWNER_KEY);
+            var owner = Storage.Get(Storage.CurrentContext, nameof(T3Contract));
 
             if (tx.Sender == owner)
             {
@@ -72,6 +71,11 @@ namespace T3
         public static BigInteger GetFee()
         {
             return (BigInteger)T3Map().Get(T3_FEE_KEY);
+        }
+
+        public static UInt160 GetOwner()
+        {
+            return (UInt160)Storage.Get(Storage.CurrentContext, nameof(T3Contract));
         }
     }
 }
