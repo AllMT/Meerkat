@@ -18,9 +18,25 @@ namespace T3
 
         public static void OnNEP17Payment(UInt160 from, BigInteger amount, object[] data)
         {
-            if((string)data[0] == "AddToMarket")
+            if((string)data[0] == "ListToken")
             {
-                AddToMarket((ByteString)data[1], (string)data[2]);
+                if (Runtime.CallingScriptHash == GAS.Hash)
+                {
+                    var currentFee = GetFee();
+
+                    if(amount < currentFee)
+                    {
+                        throw new Exception("Fee is not enough");
+                    }
+
+                    GAS.Transfer(Runtime.ExecutingScriptHash, GetOwner(), amount, null);
+                }
+                else
+                {
+                    throw new Exception("Wrong calling script hash");
+                }
+
+                ListToken((ByteString)data[1], (string)data[2]);
             }
             else if((string)data[0] == "PurchaseToken")
             {

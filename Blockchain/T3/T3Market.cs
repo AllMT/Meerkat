@@ -27,14 +27,14 @@ namespace T3
             return MarketStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
         }
 
-        public static void UpdateTokenOnMarket(ByteString TokenId, string options)
+        public static void UpdateListing(ByteString TokenId, string options)
         {
             VerifyTokenBelongsToSender(TokenId);
             VerifyTokenIsOnMarket(TokenId);
             UpdateTokenMarketData(TokenId, options);
         }
 
-        protected static void AddToMarket(ByteString TokenId, string options)
+        protected static void ListToken(ByteString TokenId, string options)
         {
             VerifyTokenBelongsToSender(TokenId);
             UpdateTokenMarketData(TokenId, options);
