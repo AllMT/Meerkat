@@ -51,7 +51,7 @@ namespace T3
             
             var token = ValueOf(TokenId);
             token.Value.MarketData = marketData;
-            AddTokenToStorage(TokenId, StdLib.Serialize(token));
+            AddTokenToStorage(TokenId, StdLib.Serialize(token), token.Value.TokenData.Category, 0);
         }
 
         private static void VerifyTokenBelongsToSender(ByteString tokenId)
@@ -92,7 +92,7 @@ namespace T3
                 throw new Exception("Not a valid listing type");
             }
 
-            if(options["purchaseType"] != PurchaseType.NEO && options["purchaseType"] != PurchaseType.GAS)
+            if(options["purchaseType"] != PurchaseType.GAS)
             {
                 throw new Exception("Not a valid purchase type");
             }

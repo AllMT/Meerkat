@@ -18,7 +18,11 @@ namespace T3
 
         public static void OnNEP17Payment(UInt160 from, BigInteger amount, object[] data)
         {
-            if((string)data[0] == "ListToken")
+            if((string)data[0] == "MintToken")
+            {
+
+            }
+            else if((string)data[0] == "ListToken")
             {
                 if (Runtime.CallingScriptHash == GAS.Hash)
                 {
@@ -54,11 +58,7 @@ namespace T3
                     throw new Exception("Not enough payment");
                 }
 
-                if (Runtime.CallingScriptHash == NEO.Hash && token.Value.MarketData.PurchaseType == PurchaseType.NEO)
-                {
-                    NEO.Transfer(Runtime.ExecutingScriptHash, token.Owner, amount, null);
-                }
-                else if (Runtime.CallingScriptHash == GAS.Hash && token.Value.MarketData.PurchaseType == PurchaseType.GAS)
+                if (Runtime.CallingScriptHash == GAS.Hash && token.Value.MarketData.PurchaseType == PurchaseType.GAS)
                 {
                     GAS.Transfer(Runtime.ExecutingScriptHash, token.Owner, amount, null);
                 }
@@ -69,7 +69,7 @@ namespace T3
 
                 var oldOwner = token.Owner;
                 token.Owner = from;
-                AddTokenToStorage(tokenId, StdLib.Serialize(token));
+                AddTokenToStorage(tokenId, StdLib.Serialize(token), token.Value.TokenData.Category, 0);
                 DeleteTokenFromMarket(tokenId);
                 UpdateBalance(oldOwner, tokenId, -1);
                 UpdateBalance(token.Owner, tokenId, +1);
@@ -79,7 +79,7 @@ namespace T3
             }
             else
             {
-                throw new Exception("Not a valid option");
+                throw new Exception("Not a valid operation");
             }
         }
     }

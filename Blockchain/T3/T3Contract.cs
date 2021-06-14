@@ -27,22 +27,11 @@ namespace T3
         private static TokenState GetTokenState(string properties)
         {
             var tx = (Transaction) Runtime.ScriptContainer;
-            var propertiesMap = (Map<string,string>)StdLib.JsonDeserialize(properties);
 
             return new TokenState()
             {
                 Owner = tx.Sender,
-                Value = new TokenProperties()
-                {
-                    TokenData = new TokenData()
-                    {
-                        Name = propertiesMap.HasKey("name") ?  propertiesMap["name"] : null,
-                        Description = propertiesMap.HasKey("description") ?  propertiesMap["description"] : null,
-                        Image = propertiesMap.HasKey("image") ?  propertiesMap["image"] : null,
-                        TokenURI = propertiesMap.HasKey("tokenURI") ?  propertiesMap["tokenURI"] : null,
-                        LockedContent = propertiesMap.HasKey("lockedContent") ?  propertiesMap["lockedContent"] : null,
-                    }
-                }
+                Value = new TokenProperties(properties)
             };
         }
 
@@ -96,6 +85,8 @@ namespace T3
             map["description"] = token.Value.TokenData.Description;
             map["image"] = token.Value.TokenData.Image;
             map["tokenURI"] = token.Value.TokenData.TokenURI;
+            map["category"] = token.Value.TokenData.Category;
+            map["collection"] = token.Value.TokenData.Collection;
 
             if(IsWhitelisted(tx.Sender, tokenId))
             {

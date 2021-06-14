@@ -49,11 +49,10 @@ namespace T3
 
         protected static void Mint(ByteString tokenId, TokenState token)
         {
-            AddTokenToStorage(tokenId, StdLib.Serialize(token));
+            AddTokenToStorage(tokenId, StdLib.Serialize(token), token.Value.TokenData.Category, +1);
             OnMint(token.Owner, tokenId);
 
             UpdateBalance(token.Owner, tokenId, +1);
-            UpdateTotalNFTSupply(+1);
             PostTransfer(null, token.Owner, tokenId, null);
         }
 
@@ -81,7 +80,7 @@ namespace T3
             if (from != to)
             {
                 token.Owner = to;
-                AddTokenToStorage(tokenId, StdLib.Serialize(token));
+                AddTokenToStorage(tokenId, StdLib.Serialize(token), token.Value.TokenData.Category, 0);
                 DeleteTokenFromMarket(tokenId);
                 UpdateBalance(from, tokenId, -1);
                 UpdateBalance(to, tokenId, +1);
@@ -98,7 +97,7 @@ namespace T3
             DeleteTokenFromStorage(tokenId);
             DeleteTokenFromMarket(tokenId);
             UpdateBalance(token.Owner, tokenId, -1);
-            UpdateTotalNFTSupply(-1);
+            
             PostTransfer(token.Owner, null, tokenId, null);
         }
 

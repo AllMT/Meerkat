@@ -19,6 +19,9 @@ namespace T3
 
         private static StorageMap T3SupplyMap() => new StorageMap(Storage.CurrentContext, NFT_SUPPLY_MAP);
 
+        public static BigInteger TotalT3TokenSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTSupplyKey);
+        public static BigInteger TotalT3MarketTokenSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTOnMarketKey);
+
         public static BigInteger BalanceOf(UInt160 owner)
         {
             if (owner is null || !owner.IsValid)
@@ -30,7 +33,7 @@ namespace T3
 
         protected static void UpdateTotalNFTSupply(BigInteger increment)
         {
-            var totalSupply = (BigInteger)T3SupplyMap().Get(TotalNFTSupplyKey);
+            var totalSupply = TotalT3TokenSupply();
             totalSupply += increment;
 
             if(totalSupply >= 0)
@@ -41,7 +44,7 @@ namespace T3
 
         protected static void UpdateTotalTokensOnMarket(BigInteger increment)
         {
-            var totalTokensOnMarket = (BigInteger)T3SupplyMap().Get(TotalNFTOnMarketKey);
+            var totalTokensOnMarket = TotalT3MarketTokenSupply();
             totalTokensOnMarket += increment;
 
             if(totalTokensOnMarket >= 0)
