@@ -3,20 +3,13 @@
     "contract": "T3",
     "operation": "mintToken",
     "args": [
-      "0x11cb3f1be79760e0d358f1ac3a3c071c125082c9d9ecf51c5669b1b62ad27af5",
-      "{\"name\":\"A and then B\", \"description\": \"B and then C\"}"
+      "0xb87f1d539c8aa7cd85f93830edb8357ca86bdaeeaf043dc3e14cce0f647d6fb7",
+      "\"{\"name\":\"Token1\", \"description\": \"My first token for minting\"}\""
     ]
   },
   {
     "contract": "T3",
-    "operation": "mintToken",
-    "args": [
-      "{\"name\":\"T3NFT\", \"description\": \"my very first test NFT\", \"image\": \"https://images.pexels.com/photos/1591447/pexels-photo-1591447.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500\", \"tokenURI\": \"\"}"
-    ]
-  },
-  {
-    "contract": "T3",
-    "operation": "getAllTokenIds"
+    "operation": "testGetAllTokenIds"
   },
   {
     "contract": "T3",

@@ -1,16 +1,9 @@
 [
   {
-    "contract": "T3",
-    "operation": "testCreateCollection",
+    "contract": "YourName.ForTestingContract",
+    "operation": "testProperties",
     "args": [
-      "FirstART"
-    ]
-  },
-  {
-    "contract": "T3",
-    "operation": "testGetAllCollectionForSender3",
-    "args": [
-      "FirstART"
+      "{\"name\":\"A B\",\"description\":\"B and C\"}"
     ]
   }
 ]

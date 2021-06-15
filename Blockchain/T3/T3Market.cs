@@ -31,7 +31,7 @@ namespace T3
             UpdateTokenMarketData(TokenId, options);
         }
 
-        public static void ListToken(ByteString TokenId, string options)
+        protected static void ListToken(ByteString TokenId, string options)
         {
             VerifyTokenBelongsToSender(TokenId);
             UpdateTokenMarketData(TokenId, options);

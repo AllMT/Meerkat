@@ -33,7 +33,7 @@ namespace T3
             //             throw new Exception("Fee is not enough");
             //         }
 
-            //         GAS.Transfer(Runtime.ExecutingScriptHash, GetOwner(), amount, null);
+            //         GAS.Transfer(Runtime.ExecutingScriptHash, GetContractOwner(), amount, null);
             //     }
             //     else
             //     {

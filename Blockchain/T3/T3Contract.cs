@@ -30,11 +30,9 @@ namespace T3
         
         private static TokenState GetTokenState(string properties)
         {
-            var tx = (Transaction) Runtime.ScriptContainer;
-
             return new TokenState()
             {
-                Owner = tx.Sender,
+                Owner = GetSenderAddress(),
                 Value = new TokenProperties(properties)
             };
         }
@@ -80,8 +78,6 @@ namespace T3
 
         public static string GetTokenProperties(ByteString tokenId)
         {
-            var tx = (Transaction)Runtime.ScriptContainer;
-            
             var token = ValueOf(tokenId);
 
             var map = new Map<string, object>();
@@ -92,7 +88,7 @@ namespace T3
             map["category"] = token.Value.TokenData.Category;
             map["collection"] = token.Value.TokenData.Collection;
 
-            if(IsWhitelisted(tx.Sender, tokenId))
+            if(IsWhitelisted(GetSenderAddress(), tokenId))
             {
                 map["lockedContent"] = token.Value.TokenData.LockedContent;
             }

@@ -12,15 +12,13 @@ namespace T3
     
     public partial class T3Contract : SmartContract
     {
+        private static Transaction Tx => (Transaction)Runtime.ScriptContainer;
+
         protected static bool IsTokenOwnerTheSender(ByteString tokenId)
         {
-            var tx = (Transaction)Runtime.ScriptContainer;
-            return tx.Sender == OwnerOf(tokenId);
+            return Tx.Sender == OwnerOf(tokenId);
         }
-        protected static UInt160 GetSenderAddress()
-        {
-            var tx = (Transaction) Runtime.ScriptContainer;
-            return tx.Sender;
-        }
+
+        protected static UInt160 GetSenderAddress() => Tx.Sender;
     }
 }

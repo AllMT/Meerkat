@@ -210,6 +210,41 @@
       },
       "problemMatcher": "$msCompile",
       "dependsOn": "T3: restore"
+    },
+    {
+      "options": {
+        "cwd": "${workspaceFolder}/ForTesting"
+      },
+      "label": "ForTesting: restore",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "restore"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": []
+    },
+    {
+      "options": {
+        "cwd": "${workspaceFolder}/ForTesting"
+      },
+      "label": "ForTesting: build",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile",
+      "dependsOn": "ForTesting: restore"
     }
   ]
 }
