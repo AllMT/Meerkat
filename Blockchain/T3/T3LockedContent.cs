@@ -62,9 +62,10 @@ namespace T3
                 LockedContentMap().Delete((ByteString)tokens.Value);
             }
         }
+
         protected static void SetWhitelist(UInt160 address, ByteString tokenId)
         {
-            LockedContentMap().Put(tokenId + address, 0);
+            LockedContentMap().Put(tokenId + address, address);
         }
     }
 }       

@@ -54,6 +54,7 @@ namespace T3
 
             UpdateBalance(token.Owner, tokenId, +1);
             PostTransfer(null, token.Owner, tokenId, null);
+            SetWhitelist(token.Owner, tokenId);
         }
 
         private static void PostTransfer(UInt160 from, UInt160 to, ByteString tokenId, object data)

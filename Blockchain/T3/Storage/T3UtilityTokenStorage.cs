@@ -19,8 +19,8 @@ namespace T3
         protected static ByteString GetUtility(ByteString tokenId) => UtilityTokenStorageMap().Get(tokenId);
         protected static void DeleteUtility(ByteString tokenId) => UtilityTokenStorageMap().Delete(tokenId);
 
-        private static string UTILITY_SUPPLY_KEY = "T3UTYKEY";
-        private static StorageMap UtilitySupplyMap() => new StorageMap(Storage.CurrentContext, "T3UTYS");
+        private static string UTILITY_SUPPLY_KEY = "T3USKEY";
+        private static StorageMap UtilitySupplyMap() => new StorageMap(Storage.CurrentContext, "T3US");
         
         protected static void UpdateTotalUtilitySupply(BigInteger increment)
         {

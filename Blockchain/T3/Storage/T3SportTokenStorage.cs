@@ -15,8 +15,8 @@ namespace T3
     {
         private static StorageMap SportTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3SPT");
 
-        private static string SPORT_SUPPLY_KEY = "T3SPTKEY";
-        private static StorageMap SportSupplyMap() => new StorageMap(Storage.CurrentContext, "T3SPTS");
+        private static string SPORT_SUPPLY_KEY = "T3SPSKEY";
+        private static StorageMap SportSupplyMap() => new StorageMap(Storage.CurrentContext, "T3SPSS");
 
 
         protected static void AddSport(ByteString tokenId, ByteString value) => SportTokenStorageMap().Put(tokenId, value);

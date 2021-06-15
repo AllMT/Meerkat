@@ -13,13 +13,13 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        protected static StorageMap VirtualWorldTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3VW");
+        protected static StorageMap VirtualWorldTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3VWM");
 
         protected static void AddVirtualWorld(ByteString tokenId, ByteString value) => VirtualWorldTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetVirtualWorld(ByteString tokenId) => VirtualWorldTokenStorageMap().Get(tokenId);
         protected static void DeleteVirtualWorld(ByteString tokenId) => VirtualWorldTokenStorageMap().Delete(tokenId);
 
-        private static string VIRTUAL_WORLD_SUPPLY_KEY = "T3VWKEY";
+        private static string VIRTUAL_WORLD_SUPPLY_KEY = "T3VWSKEY";
         private static StorageMap VirtualWorldSupplyMap() => new StorageMap(Storage.CurrentContext, "T3VWS");
         
         protected static void UpdateTotalVirtualWorldSupply(BigInteger increment)

@@ -15,8 +15,8 @@ namespace T3
     {
         private static StorageMap TradingCardTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3TC");
 
-        private static string TRADING_CARD_SUPPLY_KEY = "T3TCKEY";
-        private static StorageMap TradingCardSupplyMap() => new StorageMap(Storage.CurrentContext, "T3TCS");
+        private static string TRADING_CARD_SUPPLY_KEY = "T3TSKEY";
+        private static StorageMap TradingCardSupplyMap() => new StorageMap(Storage.CurrentContext, "T3TS");
 
         protected static void AddTradingCard(ByteString tokenId, ByteString value) => TradingCardTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetTradingCard(ByteString tokenId) => TradingCardTokenStorageMap().Get(tokenId);

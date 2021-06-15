@@ -14,8 +14,8 @@ namespace T3
     public partial class T3Contract : SmartContract
     {
         private static StorageMap DomainNameTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3DN");
-        private static string DOMAIN_NAME_SUPPLY_KEY = "T3DNKEY";
-        private static StorageMap DomainNameSupplyMap() => new StorageMap(Storage.CurrentContext, "T3DNS");
+        private static string DOMAIN_NAME_SUPPLY_KEY = "T3DSKEY";
+        private static StorageMap DomainNameSupplyMap() => new StorageMap(Storage.CurrentContext, "T3DS");
 
         protected static void AddDomainName(ByteString tokenId, ByteString value) => DomainNameTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetDomainName(ByteString tokenId) => DomainNameTokenStorageMap().Get(tokenId);

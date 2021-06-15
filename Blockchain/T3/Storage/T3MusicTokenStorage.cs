@@ -15,8 +15,8 @@ namespace T3
     {
         private static StorageMap MusicTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3MSC");
 
-        private static string MUSIC_SUPPLY_KEY = "T3MSCKEY";
-        private static StorageMap MusicSupplyMap() => new StorageMap(Storage.CurrentContext, "T3MSCS");
+        private static string MUSIC_SUPPLY_KEY = "T3MSSKEY";
+        private static StorageMap MusicSupplyMap() => new StorageMap(Storage.CurrentContext, "T3MSS");
 
         protected static void AddMusic(ByteString tokenId, ByteString value) => MusicTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetMusic(ByteString tokenId) => MusicTokenStorageMap().Get(tokenId);
