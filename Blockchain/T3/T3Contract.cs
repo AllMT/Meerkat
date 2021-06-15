@@ -39,7 +39,7 @@ namespace T3
             };
         }
 
-        public static List<string> GetTokenIdsFor(UInt160 owner)
+        public static List<string> TestGetTokenIdsFor(UInt160 owner)
         {
             var list = new List<string>();
             var iterator = TokensOf(owner);
@@ -52,7 +52,7 @@ namespace T3
             return list;
         }
 
-        public static List<string> GetAllTokenIds()
+        public static List<string> TestGetAllTokenIds()
         {
             var list = new List<string>();
             var iterator = Tokens();
@@ -65,7 +65,7 @@ namespace T3
             return list;
         }
 
-        public static List<string> GetAllMarketTokenIds()
+        public static List<string> TestGetAllMarketTokenIds()
         {
             var list = new List<string>();
             var iterator = MarketTokens();
