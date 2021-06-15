@@ -53,6 +53,19 @@ namespace T3
         public static List<string> TestGetAllTokenIds()
         {
             var list = new List<string>();
+            var iterator = TokenKeys();
+
+            while(iterator.Next())
+            {
+                list.Add((string)iterator.Value);
+            }
+
+            return list;
+        }
+
+        public static List<string> TestGetAllTokens()
+        {
+            var list = new List<string>();
             var iterator = Tokens();
 
             while(iterator.Next())
@@ -75,6 +88,7 @@ namespace T3
 
             return list;
         }
+
 
         public static string GetTokenProperties(ByteString tokenId)
         {

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net5.0": {
-      "Neo.SmartContract.Framework/3.0.0-rc2": {
+      "Neo.SmartContract.Framework/3.0.0-rc3": {
         "type": "package",
         "compile": {
           "lib/net5.0/Neo.SmartContract.Framework.dll": {}
@@ -14,15 +14,15 @@
     }
   },
   "libraries": {
-    "Neo.SmartContract.Framework/3.0.0-rc2": {
-      "sha512": "UDPm1FEaElrg21pL+5qCOQyr02uML4cDyqP+4W+HXpImuSEd+5szSixOvZ4rkooFMilSdbpfGHAGW1P3BXhZIA==",
+    "Neo.SmartContract.Framework/3.0.0-rc3": {
+      "sha512": "k+FYdRULgVkUxQB0FTUSW6Ldel1BBRBS5pIRPHncEYCKGw/grBA2m+t+LlOWWY7PE9yTA3OIIAl7sq+mOGdUrg==",
       "type": "package",
-      "path": "neo.smartcontract.framework/3.0.0-rc2",
+      "path": "neo.smartcontract.framework/3.0.0-rc3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net5.0/Neo.SmartContract.Framework.dll",
-        "neo.smartcontract.framework.3.0.0-rc2.nupkg.sha512",
+        "neo.smartcontract.framework.3.0.0-rc3.nupkg.sha512",
         "neo.smartcontract.framework.nuspec",
         "src/ByteString.cs",
         "src/CallingConventionAttribute.cs",
@@ -45,6 +45,7 @@
         "src/Native/Ledger.cs",
         "src/Native/NEO.cs",
         "src/Native/NamedCurve.cs",
+        "src/Native/NeoAccountState.cs",
         "src/Native/Oracle.cs",
         "src/Native/OracleResponseCode.cs",
         "src/Native/Policy.cs",
@@ -83,7 +84,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Neo.SmartContract.Framework >= 3.0.0-rc2"
+      "Neo.SmartContract.Framework >= 3.0.0-rc3"
     ]
   },
   "packageFolders": {
@@ -131,7 +132,7 @@
         "dependencies": {
           "Neo.SmartContract.Framework": {
             "target": "Package",
-            "version": "[3.0.0-rc2, )"
+            "version": "[3.0.0-rc3, )"
           }
         },
         "imports": [

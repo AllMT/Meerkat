@@ -20,7 +20,8 @@ namespace T3
         protected static void DeleteFromStorage(ByteString tokenId) => TokenStorageMap().Delete(tokenId);
 
         protected static TokenState ValueOf(ByteString tokenId) => (TokenState)StdLib.Deserialize(GetTokenFromStorage(tokenId));
-        public static Iterator Tokens() => TokenStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
+        public static Iterator TokenKeys() => TokenStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
+        public static Iterator Tokens() => TokenStorageMap().Find(FindOptions.RemovePrefix);
         public static UInt160 OwnerOf(ByteString tokenId) => ValueOf(tokenId).Owner;
 
 
