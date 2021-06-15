@@ -18,31 +18,32 @@ namespace T3
 
         public static void OnNEP17Payment(UInt160 from, BigInteger amount, object[] data)
         {
-            if((string)data[0] == "MintToken")
-            {
+            // if((string)data[0] == "MintToken")
+            // {
 
-            }
-            else if((string)data[0] == "ListToken")
-            {
-                if (Runtime.CallingScriptHash == GAS.Hash)
-                {
-                    var currentFee = GetFee();
+            // }
+            // else if((string)data[0] == "ListToken")
+            // {
+            //     if (Runtime.CallingScriptHash == GAS.Hash)
+            //     {
+            //         var currentFee = GetFee();
 
-                    if(amount < currentFee)
-                    {
-                        throw new Exception("Fee is not enough");
-                    }
+            //         if(amount < currentFee)
+            //         {
+            //             throw new Exception("Fee is not enough");
+            //         }
 
-                    GAS.Transfer(Runtime.ExecutingScriptHash, GetOwner(), amount, null);
-                }
-                else
-                {
-                    throw new Exception("Wrong calling script hash");
-                }
+            //         GAS.Transfer(Runtime.ExecutingScriptHash, GetOwner(), amount, null);
+            //     }
+            //     else
+            //     {
+            //         throw new Exception("Wrong calling script hash");
+            //     }
 
-                ListToken((ByteString)data[1], (string)data[2]);
-            }
-            else if((string)data[0] == "PurchaseToken")
+            //     ListToken((ByteString)data[1], (string)data[2]);
+            // }
+            // else 
+            if((string)data[0] == "PurchaseToken")
             {
                 var tokenId = (ByteString)data[1];
 
@@ -69,7 +70,7 @@ namespace T3
 
                 var oldOwner = token.Owner;
                 token.Owner = from;
-                AddTokenToStorage(tokenId, StdLib.Serialize(token), token.Value.TokenData.Category, 0);
+                AddTokenToStorage(tokenId, token, 0);
                 DeleteTokenFromMarket(tokenId);
                 UpdateBalance(oldOwner, tokenId, -1);
                 UpdateBalance(token.Owner, tokenId, +1);

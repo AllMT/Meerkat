@@ -1,0 +1,16 @@
+[
+  {
+    "contract": "T3",
+    "operation": "testCreateCollection",
+    "args": [
+      "FirstART"
+    ]
+  },
+  {
+    "contract": "T3",
+    "operation": "testGetAllCollectionForSender3",
+    "args": [
+      "FirstART"
+    ]
+  }
+]

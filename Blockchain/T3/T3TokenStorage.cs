@@ -25,50 +25,51 @@ namespace T3
         public static UInt160 OwnerOf(ByteString tokenId) => ValueOf(tokenId).Owner;
 
 
-        protected static void AddTokenToStorage(ByteString tokenId, ByteString value, string category, BigInteger increment)
+        protected static void AddTokenToStorage(ByteString tokenId, TokenState token, BigInteger increment)
         {
-            if(category == Categories.ART)
+            var value = StdLib.Serialize(token);
+            if(token.Value.TokenData.Category == Categories.ART)
             {
                 AddArt(tokenId, value);
                 UpdateTotalArtSupply(increment);
             }
-            else if(category == Categories.COLLECTIBLES)
+            else if(token.Value.TokenData.Category == Categories.COLLECTIBLES)
             {
                 AddCollectible(tokenId, value);
                 UpdateTotalCollectibleSupply(increment);
             }
-            else if(category == Categories.DOMAINNAMES)
+            else if(token.Value.TokenData.Category == Categories.DOMAINNAMES)
             {
                 AddDomainName(tokenId, value);
                 UpdateTotalDomainNameSupply(increment);
             }
-            else if(category == Categories.MUSIC)
+            else if(token.Value.TokenData.Category == Categories.MUSIC)
             {
                 AddMusic(tokenId, value);
                 UpdateTotalMusicSupply(increment);
             }
-            else if(category == Categories.SPORTS)
+            else if(token.Value.TokenData.Category == Categories.SPORTS)
             {
                 AddSport(tokenId, value);
                 UpdateTotalSportSupply(increment);
             }
-            else if(category == Categories.TRADINGCARDS)
+            else if(token.Value.TokenData.Category == Categories.TRADINGCARDS)
             {
                 AddTradingCard(tokenId, value);
                 UpdateTotalTradingCardSupply(increment);
             }
-            else if(category == Categories.UTILITIES)
+            else if(token.Value.TokenData.Category == Categories.UTILITIES)
             {
                 AddUtility(tokenId, value);
                 UpdateTotalUtilitySupply(increment);
             }
-            else if(category == Categories.VIRTUALWORLDS)
+            else if(token.Value.TokenData.Category == Categories.VIRTUALWORLDS)
             {
                 AddVirtualWorld(tokenId, value);
                 UpdateTotalVirtualWorldSupply(increment);
             }
 
-            AddToStorage(tokenId, category);
+            AddToStorage(tokenId, token.Value.TokenData.Category);
             UpdateTotalNFTSupply(increment);
         }
 
@@ -167,6 +168,12 @@ namespace T3
 
             DeleteFromStorage(tokenId);
             UpdateTotalNFTSupply(-1);
+        }
+
+        protected static bool DoesTokenExist(ByteString tokenId)
+        {
+            var tokenCategory = GetFromStorage(tokenId);
+            return tokenCategory != null;
         }
     }
 }

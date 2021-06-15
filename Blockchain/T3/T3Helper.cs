@@ -17,5 +17,10 @@ namespace T3
             var tx = (Transaction)Runtime.ScriptContainer;
             return tx.Sender == OwnerOf(tokenId);
         }
+        protected static UInt160 GetSenderAddress()
+        {
+            var tx = (Transaction) Runtime.ScriptContainer;
+            return tx.Sender;
+        }
     }
 }

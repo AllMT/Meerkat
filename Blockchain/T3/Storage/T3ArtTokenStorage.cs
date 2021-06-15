@@ -13,11 +13,11 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string ART_TOKEN_PREFIX = "T3ARTTOKENMAP";
+        private const string ART_TOKEN_PREFIX = "T3ART";
         private static StorageMap ArtTokenStorageMap() => new StorageMap(Storage.CurrentContext, ART_TOKEN_PREFIX);
 
-        private static string ART_SUPPLY_KEY = "T3ARTSupplyKey";
-        private static string ART_SUPPLY_PREFIX = "T3ARTSupply";
+        private static string ART_SUPPLY_KEY = "T3ARTK";
+        private static string ART_SUPPLY_PREFIX = "T3ARTP";
         private static StorageMap ArtSupplyMap() => new StorageMap(Storage.CurrentContext, ART_SUPPLY_PREFIX);
 
         protected static void AddArt(ByteString tokenId, ByteString value) => ArtTokenStorageMap().Put(tokenId, value);
@@ -31,9 +31,11 @@ namespace T3
 
             if(totalSupply >= 0)
             {
-                ArtSupplyMap().Put(ART_SUPPLY_KEY, totalSupply += increment);
+                ArtSupplyMap().Put(ART_SUPPLY_KEY, totalSupply);
             }
         }
+
+        public static Iterator ArtTokens() => ArtTokenStorageMap().Find(FindOptions.RemovePrefix);
 
         public static BigInteger TotalT3ArtSupply() => (BigInteger)ArtSupplyMap().Get(ART_SUPPLY_KEY);
     }

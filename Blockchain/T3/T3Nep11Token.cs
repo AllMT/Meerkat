@@ -21,7 +21,7 @@ namespace T3
         public static event OnMintDelegate OnMint;
 
 
-        protected const string ACCOUNT_TOKEN_MAP = "T3ACCOUNTMAP";
+        protected const string ACCOUNT_TOKEN_MAP = "T3ACC";
         protected static StorageMap AccountStorageMap() => new StorageMap(Storage.CurrentContext, ACCOUNT_TOKEN_MAP);
 
         public static Iterator TokensOf(UInt160 owner)
@@ -49,7 +49,7 @@ namespace T3
 
         protected static void Mint(ByteString tokenId, TokenState token)
         {
-            AddTokenToStorage(tokenId, StdLib.Serialize(token), token.Value.TokenData.Category, +1);
+            AddTokenToStorage(tokenId, token, +1);
             OnMint(token.Owner, tokenId);
 
             UpdateBalance(token.Owner, tokenId, +1);
@@ -80,7 +80,7 @@ namespace T3
             if (from != to)
             {
                 token.Owner = to;
-                AddTokenToStorage(tokenId, StdLib.Serialize(token), token.Value.TokenData.Category, 0);
+                AddTokenToStorage(tokenId, token, 0);
                 DeleteTokenFromMarket(tokenId);
                 UpdateBalance(from, tokenId, -1);
                 UpdateBalance(to, tokenId, +1);

@@ -38,7 +38,7 @@ namespace T3
 
             if(totalSupply >= 0)
             {
-                T3SupplyMap().Put(TotalNFTSupplyKey, totalSupply += increment);
+                T3SupplyMap().Put(TotalNFTSupplyKey, totalSupply);
             }
         }
 

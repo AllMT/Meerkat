@@ -16,16 +16,13 @@ namespace T3
         [DisplayName("Market")]
         public static event OnMarketDelegate OnMarket;
 
-        private static readonly string MARKET_MAP = "T3MARKETMAP";
+        private static readonly string MARKET_MAP = "T3MARKET";
         protected static StorageMap MarketStorageMap() => new StorageMap(Storage.CurrentContext, MARKET_MAP);
 
         protected static void AddTokenToMarket(ByteString tokenId) => MarketStorageMap().Put(tokenId, 0);
         protected static void DeleteTokenFromMarket(ByteString tokenId) => MarketStorageMap().Delete(tokenId);
 
-        public static Iterator MarketTokens()
-        {
-            return MarketStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
-        }
+        public static Iterator MarketTokens() => MarketStorageMap().Find(FindOptions.RemovePrefix);
 
         public static void UpdateListing(ByteString TokenId, string options)
         {
@@ -34,7 +31,7 @@ namespace T3
             UpdateTokenMarketData(TokenId, options);
         }
 
-        protected static void ListToken(ByteString TokenId, string options)
+        public static void ListToken(ByteString TokenId, string options)
         {
             VerifyTokenBelongsToSender(TokenId);
             UpdateTokenMarketData(TokenId, options);
@@ -51,7 +48,7 @@ namespace T3
             
             var token = ValueOf(TokenId);
             token.Value.MarketData = marketData;
-            AddTokenToStorage(TokenId, StdLib.Serialize(token), token.Value.TokenData.Category, 0);
+            AddTokenToStorage(TokenId, token, 0);
         }
 
         private static void VerifyTokenBelongsToSender(ByteString tokenId)

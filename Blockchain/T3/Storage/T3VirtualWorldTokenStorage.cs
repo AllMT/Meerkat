@@ -13,15 +13,15 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        protected const string VIRTUAL_WORLD_TOKEN_MAP = "T3VIRTUALWORLDTOKENMAP";
+        protected const string VIRTUAL_WORLD_TOKEN_MAP = "T3VWORLD";
         protected static StorageMap VirtualWorldTokenStorageMap() => new StorageMap(Storage.CurrentContext, VIRTUAL_WORLD_TOKEN_MAP);
 
         protected static void AddVirtualWorld(ByteString tokenId, ByteString value) => VirtualWorldTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetVirtualWorld(ByteString tokenId) => VirtualWorldTokenStorageMap().Get(tokenId);
         protected static void DeleteVirtualWorld(ByteString tokenId) => VirtualWorldTokenStorageMap().Delete(tokenId);
 
-        private static string VIRTUAL_WORLD_SUPPLY_KEY = "T3VIRTUALWORLDSupplyKey";
-        private static string VIRTUAL_WORLD_SUPPLY_PREFIX = "T3VIRTUALWORLDSupply";
+        private static string VIRTUAL_WORLD_SUPPLY_KEY = "T3VWORLDK";
+        private static string VIRTUAL_WORLD_SUPPLY_PREFIX = "T3VWORLDS";
         private static StorageMap VirtualWorldSupplyMap() => new StorageMap(Storage.CurrentContext, VIRTUAL_WORLD_SUPPLY_PREFIX);
         
         protected static void UpdateTotalVirtualWorldSupply(BigInteger increment)
@@ -31,7 +31,7 @@ namespace T3
 
             if(totalSupply >= 0)
             {
-                VirtualWorldSupplyMap().Put(VIRTUAL_WORLD_SUPPLY_KEY, totalSupply += increment);
+                VirtualWorldSupplyMap().Put(VIRTUAL_WORLD_SUPPLY_KEY, totalSupply);
             }
         }
 

@@ -11,7 +11,7 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static string LOCKED_CONTENT_MAP = "T3LOCKEDCONTENT";
+        private static string LOCKED_CONTENT_MAP = "T3LOCKED";
 
         private static StorageMap LockedContentMap() => new StorageMap(Storage.CurrentContext, LOCKED_CONTENT_MAP);
 

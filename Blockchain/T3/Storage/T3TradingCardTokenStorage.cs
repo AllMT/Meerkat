@@ -13,11 +13,11 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string TRADING_CARD_TOKEN_MAP = "T3TRADINGCARDTOKENMAP";
+        private const string TRADING_CARD_TOKEN_MAP = "T3TCARD";
         private static StorageMap TradingCardTokenStorageMap() => new StorageMap(Storage.CurrentContext, TRADING_CARD_TOKEN_MAP);
 
-        private static string TRADING_CARD_SUPPLY_KEY = "T3TRADINGCARDSupplyKey";
-        private static string TRADING_CARD_SUPPLY_PREFIX = "T3TRADINGCARDSupply";
+        private static string TRADING_CARD_SUPPLY_KEY = "T3TCARDK";
+        private static string TRADING_CARD_SUPPLY_PREFIX = "T3TCARDS";
         private static StorageMap TradingCardSupplyMap() => new StorageMap(Storage.CurrentContext, TRADING_CARD_SUPPLY_PREFIX);
 
         protected static void AddTradingCard(ByteString tokenId, ByteString value) => TradingCardTokenStorageMap().Put(tokenId, value);
@@ -32,7 +32,7 @@ namespace T3
 
             if(totalSupply >= 0)
             {
-                TradingCardSupplyMap().Put(TRADING_CARD_SUPPLY_KEY, totalSupply += increment);
+                TradingCardSupplyMap().Put(TRADING_CARD_SUPPLY_KEY, totalSupply);
             }
         }
 

@@ -19,8 +19,12 @@ namespace T3
     {
         public static bool MintToken(ByteString tokenId, string properties)
         {
-            Mint(tokenId, GetTokenState(properties));
+            if(DoesTokenExist(tokenId))
+            {
+                throw new Exception("Token already exists");
+            }
 
+            Mint(tokenId, GetTokenState(properties));
             return true;
         }
         

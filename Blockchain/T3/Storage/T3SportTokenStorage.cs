@@ -13,11 +13,11 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string SPORT_TOKEN_MAP = "T3SPORTTOKENMAP";
+        private const string SPORT_TOKEN_MAP = "T3SPORT";
         private static StorageMap SportTokenStorageMap() => new StorageMap(Storage.CurrentContext, SPORT_TOKEN_MAP);
 
-        private static string SPORT_SUPPLY_KEY = "T3SPORTSupplyKey";
-        private static string SPORT_SUPPLY_PREFIX = "T3SPORTSupply";
+        private static string SPORT_SUPPLY_KEY = "T3SPORTK";
+        private static string SPORT_SUPPLY_PREFIX = "T3SPORTS";
         private static StorageMap SportSupplyMap() => new StorageMap(Storage.CurrentContext, SPORT_SUPPLY_PREFIX);
 
 
@@ -32,7 +32,7 @@ namespace T3
 
             if(totalSupply >= 0)
             {
-                SportSupplyMap().Put(SPORT_SUPPLY_KEY, totalSupply += increment);
+                SportSupplyMap().Put(SPORT_SUPPLY_KEY, totalSupply);
             }
         }
 

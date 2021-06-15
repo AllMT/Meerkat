@@ -13,10 +13,10 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string DOMAIN_NAME_TOKEN_MAP = "T3DOMAINNAMETOKENMAP";
+        private const string DOMAIN_NAME_TOKEN_MAP = "T3DNAME";
         private static StorageMap DomainNameTokenStorageMap() => new StorageMap(Storage.CurrentContext, DOMAIN_NAME_TOKEN_MAP);
-        private static string DOMAIN_NAME_SUPPLY_KEY = "T3DOMAINNAMESupplyKey";
-        private static string DOMAIN_NAME_SUPPLY_PREFIX = "T3DOMAINNAMESupply";
+        private static string DOMAIN_NAME_SUPPLY_KEY = "T3DNAMEK";
+        private static string DOMAIN_NAME_SUPPLY_PREFIX = "T3DNAMES";
         private static StorageMap DomainNameSupplyMap() => new StorageMap(Storage.CurrentContext, DOMAIN_NAME_SUPPLY_PREFIX);
 
         protected static void AddDomainName(ByteString tokenId, ByteString value) => DomainNameTokenStorageMap().Put(tokenId, value);
@@ -30,7 +30,7 @@ namespace T3
 
             if(totalSupply >= 0)
             {
-                DomainNameSupplyMap().Put(DOMAIN_NAME_SUPPLY_KEY, totalSupply += increment);
+                DomainNameSupplyMap().Put(DOMAIN_NAME_SUPPLY_KEY, totalSupply);
             }
         }
 
