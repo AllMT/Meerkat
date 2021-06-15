@@ -13,8 +13,7 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        protected const string TOKEN_MAP = "T3TOKENMAP";
-        protected static StorageMap TokenStorageMap() => new StorageMap(Storage.CurrentContext, TOKEN_MAP);
+        protected static StorageMap TokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3TOKEN");
 
         protected static void AddToStorage(ByteString tokenId, ByteString value) => TokenStorageMap().Put(tokenId, value);
         protected static ByteString GetFromStorage(ByteString tokenId) => TokenStorageMap().Get(tokenId);

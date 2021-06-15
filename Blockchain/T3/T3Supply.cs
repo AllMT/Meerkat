@@ -13,11 +13,10 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static readonly string TotalNFTOnMarketKey = "TotalNFTOnMarketKey";
-        private static readonly string TotalNFTSupplyKey = "TotalNFTSupplyKey";
-        private static string NFT_SUPPLY_MAP = "T3NFTSupply";
+        private static readonly string TotalNFTOnMarketKey = "T3TOTALMARKETNFTKEY";
+        private static readonly string TotalNFTSupplyKey = "T3TOTALNFTSUPPLYKEY";
 
-        private static StorageMap T3SupplyMap() => new StorageMap(Storage.CurrentContext, NFT_SUPPLY_MAP);
+        private static StorageMap T3SupplyMap() => new StorageMap(Storage.CurrentContext, "T3NFTS");
 
         public static BigInteger TotalT3TokenSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTSupplyKey);
         public static BigInteger TotalT3MarketTokenSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTOnMarketKey);

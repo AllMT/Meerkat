@@ -13,11 +13,9 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string COLLECTIBLE_TOKEN_MAP = "T3COLLECTIBLE";
-        private static StorageMap CollectibleTokenStorageMap() => new StorageMap(Storage.CurrentContext, COLLECTIBLE_TOKEN_MAP);
-        private static string COLLECTIBLE_SUPPLY_KEY = "T3COLLECTIBLEK";
-        private static string COLLECTIBLE_SUPPLY_PREFIX = "T3COLLECTIBLES";
-        private static StorageMap CollectibleSupplyMap() => new StorageMap(Storage.CurrentContext, COLLECTIBLE_SUPPLY_PREFIX);
+        private static StorageMap CollectibleTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3CLE");
+        private static string COLLECTIBLE_SUPPLY_KEY = "T3CLEKEY";
+        private static StorageMap CollectibleSupplyMap() => new StorageMap(Storage.CurrentContext, "T3CLES");
 
         protected static void AddCollectible(ByteString tokenId, ByteString value) => CollectibleTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetCollectible(ByteString tokenId) => CollectibleTokenStorageMap().Get(tokenId);

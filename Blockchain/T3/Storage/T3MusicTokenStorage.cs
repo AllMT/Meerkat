@@ -13,12 +13,10 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string MUSIC_TOKEN_MAP = "T3MUSIC";
-        private static StorageMap MusicTokenStorageMap() => new StorageMap(Storage.CurrentContext, MUSIC_TOKEN_MAP);
+        private static StorageMap MusicTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3MSC");
 
-        private static string MUSIC_SUPPLY_KEY = "T3MUSICK";
-        private static string MUSIC_SUPPLY_PREFIX = "T3MUSICS";
-        private static StorageMap MusicSupplyMap() => new StorageMap(Storage.CurrentContext, MUSIC_SUPPLY_PREFIX);
+        private static string MUSIC_SUPPLY_KEY = "T3MSCKEY";
+        private static StorageMap MusicSupplyMap() => new StorageMap(Storage.CurrentContext, "T3MSCS");
 
         protected static void AddMusic(ByteString tokenId, ByteString value) => MusicTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetMusic(ByteString tokenId) => MusicTokenStorageMap().Get(tokenId);

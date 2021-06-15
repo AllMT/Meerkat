@@ -13,12 +13,10 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string ART_TOKEN_PREFIX = "T3ART";
-        private static StorageMap ArtTokenStorageMap() => new StorageMap(Storage.CurrentContext, ART_TOKEN_PREFIX);
+        private static StorageMap ArtTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3ART");
 
-        private static string ART_SUPPLY_KEY = "T3ARTK";
-        private static string ART_SUPPLY_PREFIX = "T3ARTP";
-        private static StorageMap ArtSupplyMap() => new StorageMap(Storage.CurrentContext, ART_SUPPLY_PREFIX);
+        private static string ART_SUPPLY_KEY = "T3ARTKEY";
+        private static StorageMap ArtSupplyMap() => new StorageMap(Storage.CurrentContext, "T3ARTS");
 
         protected static void AddArt(ByteString tokenId, ByteString value) => ArtTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetArt(ByteString tokenId) => ArtTokenStorageMap().Get(tokenId);

@@ -13,12 +13,10 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string TRADING_CARD_TOKEN_MAP = "T3TCARD";
-        private static StorageMap TradingCardTokenStorageMap() => new StorageMap(Storage.CurrentContext, TRADING_CARD_TOKEN_MAP);
+        private static StorageMap TradingCardTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3TC");
 
-        private static string TRADING_CARD_SUPPLY_KEY = "T3TCARDK";
-        private static string TRADING_CARD_SUPPLY_PREFIX = "T3TCARDS";
-        private static StorageMap TradingCardSupplyMap() => new StorageMap(Storage.CurrentContext, TRADING_CARD_SUPPLY_PREFIX);
+        private static string TRADING_CARD_SUPPLY_KEY = "T3TCKEY";
+        private static StorageMap TradingCardSupplyMap() => new StorageMap(Storage.CurrentContext, "T3TCS");
 
         protected static void AddTradingCard(ByteString tokenId, ByteString value) => TradingCardTokenStorageMap().Put(tokenId, value);
         protected static ByteString GetTradingCard(ByteString tokenId) => TradingCardTokenStorageMap().Get(tokenId);

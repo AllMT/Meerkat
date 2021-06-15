@@ -13,12 +13,10 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private const string SPORT_TOKEN_MAP = "T3SPORT";
-        private static StorageMap SportTokenStorageMap() => new StorageMap(Storage.CurrentContext, SPORT_TOKEN_MAP);
+        private static StorageMap SportTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3SPT");
 
-        private static string SPORT_SUPPLY_KEY = "T3SPORTK";
-        private static string SPORT_SUPPLY_PREFIX = "T3SPORTS";
-        private static StorageMap SportSupplyMap() => new StorageMap(Storage.CurrentContext, SPORT_SUPPLY_PREFIX);
+        private static string SPORT_SUPPLY_KEY = "T3SPTKEY";
+        private static StorageMap SportSupplyMap() => new StorageMap(Storage.CurrentContext, "T3SPTS");
 
 
         protected static void AddSport(ByteString tokenId, ByteString value) => SportTokenStorageMap().Put(tokenId, value);
