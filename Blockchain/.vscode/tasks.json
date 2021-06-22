@@ -245,6 +245,41 @@
       },
       "problemMatcher": "$msCompile",
       "dependsOn": "ForTesting: restore"
+    },
+    {
+      "options": {
+        "cwd": "${workspaceFolder}/TestContrac"
+      },
+      "label": "TestContrac: restore",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "restore"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": []
+    },
+    {
+      "options": {
+        "cwd": "${workspaceFolder}/TestContrac"
+      },
+      "label": "TestContrac: build",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile",
+      "dependsOn": "TestContrac: restore"
     }
   ]
 }

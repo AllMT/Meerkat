@@ -20,7 +20,6 @@ namespace T3
         [DisplayName("Mint")]
         public static event OnMintDelegate OnMint;
 
-
         protected const string ACCOUNT_TOKEN_MAP = "T3ACC";
         protected static StorageMap AccountStorageMap() => new StorageMap(Storage.CurrentContext, ACCOUNT_TOKEN_MAP);
 
@@ -49,12 +48,12 @@ namespace T3
 
         protected static void Mint(ByteString tokenId, TokenState token)
         {
-            AddTokenToStorage(tokenId, token, +1);
-            OnMint(token.Owner, tokenId);
+            var newTokenId = AddTokenToStorage(tokenId, token, +1);
+            OnMint(token.Owner, newTokenId);
 
-            UpdateBalance(token.Owner, tokenId, +1);
-            PostTransfer(null, token.Owner, tokenId, null);
-            SetWhitelist(token.Owner, tokenId);
+            UpdateBalance(token.Owner, newTokenId, +1);
+            PostTransfer(null, token.Owner, newTokenId, null);
+            SetWhitelist(token.Owner, newTokenId);
         }
 
         private static void PostTransfer(UInt160 from, UInt160 to, ByteString tokenId, object data)

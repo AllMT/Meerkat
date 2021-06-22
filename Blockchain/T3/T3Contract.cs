@@ -87,7 +87,6 @@ namespace T3
             return list;
         }
 
-
         public static string GetTokenProperties(ByteString tokenId)
         {
             var token = ValueOf(tokenId);
@@ -100,10 +99,10 @@ namespace T3
             map["category"] = token.Value.TokenData.Category;
             map["collection"] = token.Value.TokenData.Collection;
 
-            if(IsWhitelisted(GetSenderAddress(), tokenId))
-            {
-                map["lockedContent"] = token.Value.TokenData.LockedContent;
-            }
+            // if(IsWhitelisted(GetSenderAddress(), tokenId))
+            // {
+            //     map["lockedContent"] = token.Value.TokenData.LockedContent;
+            // }
 
             if(token.Value.MarketData != null)
             {
@@ -114,5 +113,77 @@ namespace T3
 
             return StdLib.JsonSerialize(map);
         }
+
+        public static List<TokenState> GetLatestTokens()
+        {
+            var total = TotalT3TokenSupply();
+            var lowest = (total - 10) > 0 ? 0 : total - 10;
+
+            var tokens = new List<TokenState>();
+
+            var tokenIterator = TokenKeys();
+            while(tokenIterator.Next() || (lowest == total))
+            {
+                tokens.Add(ValueOf((ByteString)tokenIterator.Value));
+                lowest += 1;
+            }
+
+            return tokens;
+        }
+
+        public static List<TokenState> TestGetLatestArtTokensByIndex()
+        {
+            var total = T3ArtIndexSupply() + 1;
+            BigInteger lowest = (total - 10) < 0 ? 1 : total - 10;
+
+            var tokens = new List<TokenState>();
+            while(lowest != total)
+            {
+                tokens.Add(GetArtByIndex(lowest));
+                lowest += 1;
+            }
+
+            return tokens;
+        }
+
+        public static void TestBurnAll()
+        {
+            var tokenIterator = TokenKeys();
+            while(tokenIterator.Next())
+            {
+                Burn((ByteString)tokenIterator.Value);
+            }
+        }
+
+
+        public static TokenState TestGetTokenProperties(ByteString tokenId) => ValueOf(tokenId);
+
+        // public static TicketPaginate GetTickets(int page)
+        // {
+        //     BigInteger height = GetTicketHeight();
+        //     BigInteger itemsPerPage = defaultItemsPerPage > height ? height : defaultItemsPerPage;
+        //     BigInteger totalPages = height > itemsPerPage ? height % itemsPerPage == 0 ? (height / itemsPerPage) : (height / itemsPerPage) + 1 : 1;
+        //     BigInteger startAt = height - (itemsPerPage * (page - 1));
+        //     BigInteger endAt = startAt > itemsPerPage ? startAt - itemsPerPage : 0;
+
+        //     List<TicketRecord> list = new List<TicketRecord>();
+        //     StorageMap Tickets = new StorageMap(Storage.CurrentContext, TICKET_PREFIX);
+        //     for (BigInteger i = startAt; i != endAt; i--)
+        //     {
+        //         ByteString item = Tickets.Get(Helper.ToByteString(Helper.ToByteArray(Helper.ToByte(i))));
+        //         if (item != null)
+        //         {
+        //             list.Add((TicketRecord)StdLib.Deserialize(item));
+        //         }
+        //     }
+        //     TicketPaginate paginate = new TicketPaginate
+        //     {
+        //         totalItems = height,
+        //         totalPages = totalPages,
+        //         currentpage = page,
+        //         items = list
+        //     };
+        //     return paginate;
+        // }
     }
 }

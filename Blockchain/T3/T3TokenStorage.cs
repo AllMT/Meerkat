@@ -25,57 +25,60 @@ namespace T3
         public static UInt160 OwnerOf(ByteString tokenId) => ValueOf(tokenId).Owner;
 
 
-        protected static void AddTokenToStorage(ByteString tokenId, TokenState token, BigInteger increment)
+        protected static ByteString AddTokenToStorage(ByteString tokenId, TokenState token, BigInteger increment)
         {
-            var value = StdLib.Serialize(token);
+            token.Id = tokenId;
+            var tokenSerialized = StdLib.Serialize(token);
+
             if(token.Value.TokenData.Category == Categories.ART)
             {
-                AddArt(tokenId, value);
-                UpdateTotalArtSupply(increment);
+                AddArt(token.Id, tokenSerialized, increment);
             }
             else if(token.Value.TokenData.Category == Categories.COLLECTIBLES)
             {
-                AddCollectible(tokenId, value);
+                AddCollectible(token.Id, tokenSerialized, increment);
                 UpdateTotalCollectibleSupply(increment);
             }
             else if(token.Value.TokenData.Category == Categories.DOMAINNAMES)
             {
-                AddDomainName(tokenId, value);
+                AddDomainName(token.Id, tokenSerialized);
                 UpdateTotalDomainNameSupply(increment);
             }
             else if(token.Value.TokenData.Category == Categories.MUSIC)
             {
-                AddMusic(tokenId, value);
+                AddMusic(token.Id, tokenSerialized);
                 UpdateTotalMusicSupply(increment);
             }
             else if(token.Value.TokenData.Category == Categories.SPORTS)
             {
-                AddSport(tokenId, value);
+                AddSport(token.Id, tokenSerialized);
                 UpdateTotalSportSupply(increment);
             }
             else if(token.Value.TokenData.Category == Categories.TRADINGCARDS)
             {
-                AddTradingCard(tokenId, value);
+                AddTradingCard(token.Id, tokenSerialized);
                 UpdateTotalTradingCardSupply(increment);
             }
             else if(token.Value.TokenData.Category == Categories.UTILITIES)
             {
-                AddUtility(tokenId, value);
+                AddUtility(token.Id, tokenSerialized);
                 UpdateTotalUtilitySupply(increment);
             }
             else if(token.Value.TokenData.Category == Categories.VIRTUALWORLDS)
             {
-                AddVirtualWorld(tokenId, value);
+                AddVirtualWorld(token.Id, tokenSerialized);
                 UpdateTotalVirtualWorldSupply(increment);
             }
 
-            AddToStorage(tokenId, token.Value.TokenData.Category);
+            AddToStorage(token.Id, token.Value.TokenData.Category);
             UpdateTotalNFTSupply(increment);
+
+            return token.Id;
         }
 
         protected static ByteString GetTokenFromStorage(ByteString tokenId)
         {
-            var tokenCategory = (string)GetFromStorage(tokenId);
+            var tokenCategory = GetFromStorage(tokenId);
             if(tokenCategory == null)
             {
                 throw new Exception("Token does not exist");
@@ -128,7 +131,6 @@ namespace T3
             if(tokenCategory == Categories.ART)
             {
                 DeleteArt(tokenId);
-                UpdateTotalArtSupply(-1);
             }
             else if(tokenCategory == Categories.COLLECTIBLES)
             {

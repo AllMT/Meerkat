@@ -4,7 +4,7 @@
     "operation": "mintToken",
     "args": [
       "0xb87f1d539c8aa7cd85f93830edb8357ca86bdaeeaf043dc3e14cce0f647d6fb7",
-      "{\"name\":\"Token1\", \"description\": \"My first token for minting\"}"
+      "{\"name\":\"A and B\", \"description\": \"C and D\", \"category\": \"Art\"}"
     ]
   },
   {

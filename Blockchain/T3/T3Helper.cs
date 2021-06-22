@@ -20,5 +20,15 @@ namespace T3
         }
 
         protected static UInt160 GetSenderAddress() => Tx.Sender;
+
+        protected static byte[] intToByteArray(BigInteger value) 
+        {
+            return new byte[] {
+                (byte)((value >> 24) & 0xff),
+                (byte)((value >> 16) & 0xff),
+                (byte)((value >> 8) & 0xff),
+                (byte)((value >> 0) & 0xff),
+            };
+        }
     }
 }
