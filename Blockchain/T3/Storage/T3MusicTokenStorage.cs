@@ -13,26 +13,41 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static StorageMap MusicTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3MSC");
+        protected static void AddMusic(ByteString tokenId, ByteString value, BigInteger increment)
+        {
+            if(increment > 0)
+            {
+                UpdateTotalMusicSupply(increment);
+                
+                var index = T3MusicIndexSupply() + increment;
+                MusicIndexMap().Put((ByteString)index, tokenId);
+                T3SupplyMap().Put(MUSIC_INDEX_KEY, index);
+            }
 
-        private static string MUSIC_SUPPLY_KEY = "T3MSSKEY";
-        private static StorageMap MusicSupplyMap() => new StorageMap(Storage.CurrentContext, "T3MSS");
+            MusicMap().Put(tokenId, value);
+        } 
+        protected static void DeleteMusic(ByteString tokenId)
+        {
+            MusicMap().Delete(tokenId);
+            UpdateTotalMusicSupply(-1);
+        } 
 
-        protected static void AddMusic(ByteString tokenId, ByteString value) => MusicTokenStorageMap().Put(tokenId, value);
-        protected static ByteString GetMusic(ByteString tokenId) => MusicTokenStorageMap().Get(tokenId);
-        protected static void DeleteMusic(ByteString tokenId) => MusicTokenStorageMap().Delete(tokenId);
+        protected static TokenState GetMusic(ByteString tokenId) => (TokenState)MusicMap().GetObject(tokenId);
+        protected static TokenState GetMusicByIndex(BigInteger index)
+        {
+            var tokenId = MusicIndexMap().Get((ByteString)index);
+            return (TokenState)MusicMap().GetObject(tokenId);
+        }
 
         protected static void UpdateTotalMusicSupply(BigInteger increment)
         {
-            var totalSupply = TotalT3MusicSupply();
+            var totalSupply = T3MusicSupply();
             totalSupply += increment;
 
             if(totalSupply >= 0)
             {
-                MusicSupplyMap().Put(MUSIC_SUPPLY_KEY, totalSupply);
+                T3SupplyMap().Put(MUSIC_SUPPLY_KEY, totalSupply);
             }
         }
-
-        public static BigInteger TotalT3MusicSupply() => (BigInteger)MusicSupplyMap().Get(MUSIC_SUPPLY_KEY);
     }
 }

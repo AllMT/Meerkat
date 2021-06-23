@@ -13,27 +13,40 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static StorageMap TradingCardTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3TC");
+        protected static void AddTradingCard(ByteString tokenId, ByteString value, BigInteger increment)
+        {
+            if(increment > 0)
+            {
+                UpdateTotalTradingCardSupply(increment);
+                
+                var index = T3TradingCardIndexSupply() + increment;
+                TradingCardIndexMap().Put((ByteString)index, tokenId);
+                T3SupplyMap().Put(TRADING_CARD_INDEX_KEY, index);
+            }
+            TradingCardMap().Put(tokenId, value);
+        } 
+        protected static void DeleteTradingCard(ByteString tokenId) 
+        {
+            TradingCardMap().Delete(tokenId);
+            UpdateTotalTradingCardSupply(-1);
+        }
 
-        private static string TRADING_CARD_SUPPLY_KEY = "T3TSKEY";
-        private static StorageMap TradingCardSupplyMap() => new StorageMap(Storage.CurrentContext, "T3TS");
-
-        protected static void AddTradingCard(ByteString tokenId, ByteString value) => TradingCardTokenStorageMap().Put(tokenId, value);
-        protected static ByteString GetTradingCard(ByteString tokenId) => TradingCardTokenStorageMap().Get(tokenId);
-        protected static void DeleteTradingCard(ByteString tokenId) => TradingCardTokenStorageMap().Delete(tokenId);
-
+        protected static TokenState GetTradingCard(ByteString tokenId) => (TokenState)TradingCardMap().GetObject(tokenId);
+        protected static TokenState GetTradingCardByIndex(BigInteger index)
+        {
+            var tokenId = TradingCardIndexMap().Get((ByteString)index);
+            return (TokenState)TradingCardMap().GetObject(tokenId);
+        }
         
         protected static void UpdateTotalTradingCardSupply(BigInteger increment)
         {
-            var totalSupply = TotalT3TradingCardSupply();
+            var totalSupply = T3TradingCardSupply();
             totalSupply += increment;
 
             if(totalSupply >= 0)
             {
-                TradingCardSupplyMap().Put(TRADING_CARD_SUPPLY_KEY, totalSupply);
+                T3SupplyMap().Put(TRADING_CARD_SUPPLY_KEY, totalSupply);
             }
         }
-
-        public static BigInteger TotalT3TradingCardSupply() => (BigInteger)TradingCardSupplyMap().Get(TRADING_CARD_SUPPLY_KEY);
     }
 }

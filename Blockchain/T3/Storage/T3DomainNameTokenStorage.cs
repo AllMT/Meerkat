@@ -13,25 +13,43 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static StorageMap DomainNameTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3DN");
-        private static string DOMAIN_NAME_SUPPLY_KEY = "T3DSKEY";
-        private static StorageMap DomainNameSupplyMap() => new StorageMap(Storage.CurrentContext, "T3DS");
+        protected static void AddDomainName(ByteString tokenId, ByteString value, BigInteger increment) 
+        { 
+            if(increment > 0)
+            {
+                UpdateTotalDomainNameSupply(increment);
+                
+                var index = T3DomainNameIndexSupply() + increment;
+                DomainNameIndexMap().Put((ByteString)index, tokenId);
+                T3SupplyMap().Put(DOMAIN_NAME_INDEX_KEY, index);
+            }
+            
+            DomainNameMap().Put(tokenId, value);
+        }
 
-        protected static void AddDomainName(ByteString tokenId, ByteString value) => DomainNameTokenStorageMap().Put(tokenId, value);
-        protected static ByteString GetDomainName(ByteString tokenId) => DomainNameTokenStorageMap().Get(tokenId);
-        protected static void DeleteDomainName(ByteString tokenId) => DomainNameTokenStorageMap().Delete(tokenId);
+        protected static void DeleteDomainName(ByteString tokenId) 
+        {
+            DomainNameMap().Delete(tokenId);
+            UpdateTotalDomainNameSupply(-1);
+        } 
+
+
+        protected static TokenState GetDomainName(ByteString tokenId) => (TokenState)DomainNameMap().GetObject(tokenId);
+        protected static TokenState GetDomainNameByIndex(BigInteger index)
+        {
+            var tokenId = DomainNameIndexMap().Get((ByteString)index);
+            return (TokenState)DomainNameMap().GetObject(tokenId);
+        }
 
         protected static void UpdateTotalDomainNameSupply(BigInteger increment)
         {
-            var totalSupply = TotalT3DomainNameSupply();
+            var totalSupply = T3DomainNameSupply();
             totalSupply += increment;
 
             if(totalSupply >= 0)
             {
-                DomainNameSupplyMap().Put(DOMAIN_NAME_SUPPLY_KEY, totalSupply);
+                T3SupplyMap().Put(DOMAIN_NAME_SUPPLY_KEY, totalSupply);
             }
         }
-
-        public static BigInteger TotalT3DomainNameSupply() => (BigInteger)DomainNameSupplyMap().Get(DOMAIN_NAME_SUPPLY_KEY);
     }
 }

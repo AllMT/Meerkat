@@ -13,13 +13,6 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static readonly string TotalNFTOnMarketKey = "T3TOTALMARKETNFTKEY";
-        private static readonly string TotalNFTSupplyKey = "T3TOTALNFTSUPPLYKEY";
-
-        private static StorageMap T3SupplyMap() => new StorageMap(Storage.CurrentContext, "T3NFTS");
-
-        public static BigInteger TotalT3TokenSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTSupplyKey);
-        public static BigInteger TotalT3MarketTokenSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTOnMarketKey);
 
         public static BigInteger BalanceOf(UInt160 owner)
         {
@@ -32,7 +25,7 @@ namespace T3
 
         protected static void UpdateTotalNFTSupply(BigInteger increment)
         {
-            var totalSupply = TotalT3TokenSupply();
+            var totalSupply = T3Supply();
             totalSupply += increment;
 
             if(totalSupply >= 0)
@@ -43,7 +36,7 @@ namespace T3
 
         protected static void UpdateTotalTokensOnMarket(BigInteger increment)
         {
-            var totalTokensOnMarket = TotalT3MarketTokenSupply();
+            var totalTokensOnMarket = T3MarketSupply();
             totalTokensOnMarket += increment;
 
             if(totalTokensOnMarket >= 0)

@@ -116,7 +116,7 @@ namespace T3
 
         public static List<TokenState> GetLatestTokens()
         {
-            var total = TotalT3TokenSupply();
+            var total = T3Supply();
             var lowest = (total - 10) > 0 ? 0 : total - 10;
 
             var tokens = new List<TokenState>();

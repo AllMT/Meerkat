@@ -13,13 +13,6 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static StorageMap CollectibleTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3CT");
-        private static StorageMap CollectibleIndexTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3CTIND");
-
-        private static string COLLECTIBLE_SUPPLY_KEY = "T3CSKEY";
-        private static string COLLECTIBLE_INDEX_KEY = "T3CSINDKEY";
-        private static StorageMap CollectibleSupplyMap() => new StorageMap(Storage.CurrentContext, "T3CS");
-
         protected static void AddCollectible(ByteString tokenId, ByteString value, BigInteger increment) 
         {
             if(increment > 0)
@@ -27,20 +20,24 @@ namespace T3
                 UpdateTotalCollectibleSupply(increment);
                 
                 var index = T3CollectableIndexSupply() + increment;
-                CollectibleIndexTokenStorageMap().Put((ByteString)index, tokenId);
-                CollectibleSupplyMap().Put(ART_INDEX_KEY, index);
+                CollectibleIndexMap().Put((ByteString)index, tokenId);
+                T3SupplyMap().Put(COLLECTIBLE_INDEX_KEY, index);
             }
 
-            CollectibleTokenStorageMap().Put(tokenId, value);
+            CollectibleMap().Put(tokenId, value);
         }
 
-        protected static void DeleteCollectible(ByteString tokenId) => CollectibleTokenStorageMap().Delete(tokenId);
+        protected static void DeleteCollectible(ByteString tokenId) 
+        {
+            CollectibleMap().Delete(tokenId);
+            UpdateTotalCollectibleSupply(-1);
+        }
 
-        protected static ByteString GetCollectible(ByteString tokenId) => CollectibleTokenStorageMap().Get(tokenId);
+        protected static TokenState GetCollectible(ByteString tokenId) => (TokenState)CollectibleMap().GetObject(tokenId);
         protected static TokenState GetCollectibleByIndex(BigInteger index)
         {
-            var tokenId = CollectibleIndexTokenStorageMap().Get((ByteString)index);
-            return (TokenState)CollectibleSupplyMap().GetObject(tokenId);
+            var tokenId = CollectibleIndexMap().Get((ByteString)index);
+            return (TokenState)CollectibleMap().GetObject(tokenId);
         }
 
         protected static void UpdateTotalCollectibleSupply(BigInteger increment)
@@ -50,11 +47,8 @@ namespace T3
 
             if(totalSupply >= 0)
             {
-                CollectibleSupplyMap().Put(COLLECTIBLE_SUPPLY_KEY, totalSupply);
+                T3SupplyMap().Put(COLLECTIBLE_SUPPLY_KEY, totalSupply);
             }
         }
-
-        public static BigInteger T3CollectableSupply() => (BigInteger)CollectibleSupplyMap().Get(COLLECTIBLE_SUPPLY_KEY);
-        private static BigInteger T3CollectableIndexSupply() => (BigInteger)CollectibleSupplyMap().Get(COLLECTIBLE_INDEX_KEY);
     }
 }

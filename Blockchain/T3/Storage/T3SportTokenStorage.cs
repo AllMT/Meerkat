@@ -13,27 +13,41 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        private static StorageMap SportTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3SPT");
+        protected static void AddSport(ByteString tokenId, ByteString value, BigInteger increment) 
+        {
+            if(increment > 0)
+            {
+                UpdateTotalSportSupply(increment);
+                
+                var index = T3SportIndexSupply() + increment;
+                SportIndexMap().Put((ByteString)index, tokenId);
+                T3SupplyMap().Put(SPORT_INDEX_KEY, index);
+            }
 
-        private static string SPORT_SUPPLY_KEY = "T3SPSKEY";
-        private static StorageMap SportSupplyMap() => new StorageMap(Storage.CurrentContext, "T3SPSS");
+            SportMap().Put(tokenId, value);
+        }
+        protected static void DeleteSport(ByteString tokenId) 
+        {
+            SportMap().Delete(tokenId);
+            UpdateTotalSportSupply(-1);
+        }
 
-
-        protected static void AddSport(ByteString tokenId, ByteString value) => SportTokenStorageMap().Put(tokenId, value);
-        protected static ByteString GetSport(ByteString tokenId) => SportTokenStorageMap().Get(tokenId);
-        protected static void DeleteSport(ByteString tokenId) => SportTokenStorageMap().Delete(tokenId);
+        protected static TokenState GetSport(ByteString tokenId) => (TokenState)SportMap().GetObject(tokenId);
+        protected static TokenState GetSportByIndex(BigInteger index)
+        {
+            var tokenId = SportIndexMap().Get((ByteString)index);
+            return (TokenState)SportMap().GetObject(tokenId);
+        }
 
         protected static void UpdateTotalSportSupply(BigInteger increment)
         {
-            var totalSupply = TotalT3SportSupply();
+            var totalSupply = T3SportSupply();
             totalSupply += increment;
 
             if(totalSupply >= 0)
             {
-                SportSupplyMap().Put(SPORT_SUPPLY_KEY, totalSupply);
+                T3SupplyMap().Put(SPORT_SUPPLY_KEY, totalSupply);
             }
         }
-
-        public static BigInteger TotalT3SportSupply() => (BigInteger)SportSupplyMap().Get(SPORT_SUPPLY_KEY);
     }
 }

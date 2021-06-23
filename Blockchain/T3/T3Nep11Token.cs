@@ -48,12 +48,12 @@ namespace T3
 
         protected static void Mint(ByteString tokenId, TokenState token)
         {
-            var newTokenId = AddTokenToStorage(tokenId, token, +1);
-            OnMint(token.Owner, newTokenId);
+            AddTokenToStorage(tokenId, token, +1);
+            OnMint(token.Owner, tokenId);
 
-            UpdateBalance(token.Owner, newTokenId, +1);
-            PostTransfer(null, token.Owner, newTokenId, null);
-            SetWhitelist(token.Owner, newTokenId);
+            UpdateBalance(token.Owner, tokenId, +1);
+            PostTransfer(null, token.Owner, tokenId, null);
+            SetWhitelist(token.Owner, tokenId);
         }
 
         private static void PostTransfer(UInt160 from, UInt160 to, ByteString tokenId, object data)

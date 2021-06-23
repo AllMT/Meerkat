@@ -13,26 +13,42 @@ namespace T3
 {
     public partial class T3Contract : SmartContract
     {
-        protected static StorageMap VirtualWorldTokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3VWM");
+        protected static void AddVirtualWorld(ByteString tokenId, ByteString value, BigInteger increment) 
+        {
+            if(increment > 0)
+            {
+                UpdateTotalSportSupply(increment);
+                
+                var index = T3VirtualWorldIndexSupply() + increment;
+                VirtualWorldIndexMap().Put((ByteString)index, tokenId);
+                T3SupplyMap().Put(VIRTUAL_WORLD_INDEX_KEY, index);
+            }
 
-        protected static void AddVirtualWorld(ByteString tokenId, ByteString value) => VirtualWorldTokenStorageMap().Put(tokenId, value);
-        protected static ByteString GetVirtualWorld(ByteString tokenId) => VirtualWorldTokenStorageMap().Get(tokenId);
-        protected static void DeleteVirtualWorld(ByteString tokenId) => VirtualWorldTokenStorageMap().Delete(tokenId);
+            VirtualWorldMap().Put(tokenId, value);
+        } 
+        
+        protected static void DeleteVirtualWorld(ByteString tokenId) 
+        {
+            VirtualWorldMap().Delete(tokenId);
+            UpdateTotalVirtualWorldSupply(-1);
+        } 
 
-        private static string VIRTUAL_WORLD_SUPPLY_KEY = "T3VWSKEY";
-        private static StorageMap VirtualWorldSupplyMap() => new StorageMap(Storage.CurrentContext, "T3VWS");
+        protected static TokenState GetVirtualWorld(ByteString tokenId) => (TokenState)VirtualWorldMap().GetObject(tokenId);
+        protected static TokenState GetVirtualWorldByIndex(BigInteger index)
+        {
+            var tokenId = VirtualWorldIndexMap().Get((ByteString)index);
+            return (TokenState)VirtualWorldMap().GetObject(tokenId);
+        }
         
         protected static void UpdateTotalVirtualWorldSupply(BigInteger increment)
         {
-            var totalSupply = TotalT3VirtualWorldSupply();
+            var totalSupply = T3VirtualWorldSupply();
             totalSupply += increment;
 
             if(totalSupply >= 0)
             {
-                VirtualWorldSupplyMap().Put(VIRTUAL_WORLD_SUPPLY_KEY, totalSupply);
+                T3SupplyMap().Put(VIRTUAL_WORLD_SUPPLY_KEY, totalSupply);
             }
         }
-
-        public static BigInteger TotalT3VirtualWorldSupply() => (BigInteger)VirtualWorldSupplyMap().Get(VIRTUAL_WORLD_SUPPLY_KEY);
     }
 }

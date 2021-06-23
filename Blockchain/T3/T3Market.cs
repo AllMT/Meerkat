@@ -20,7 +20,16 @@ namespace T3
         protected static StorageMap MarketStorageMap() => new StorageMap(Storage.CurrentContext, MARKET_MAP);
 
         protected static void AddTokenToMarket(ByteString tokenId) => MarketStorageMap().Put(tokenId, 0);
-        protected static void DeleteTokenFromMarket(ByteString tokenId) => MarketStorageMap().Delete(tokenId);
+        protected static void DeleteTokenFromMarket(ByteString tokenId) 
+        {
+            var token = MarketStorageMap().Get(tokenId);
+
+            if(token != null)
+            {
+                MarketStorageMap().Delete(tokenId);
+                UpdateTotalTokensOnMarket(-1);
+            }
+        } 
 
         public static Iterator MarketTokens() => MarketStorageMap().Find(FindOptions.RemovePrefix);
 
