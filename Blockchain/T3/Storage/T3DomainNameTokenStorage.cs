@@ -51,5 +51,33 @@ namespace T3
                 T3SupplyMap().Put(DOMAIN_NAME_SUPPLY_KEY, totalSupply);
             }
         }
+
+        public static List<TokenState> GetLatestDomainNamesTokensByIndex()
+        {
+            var total = T3DomainNameIndexSupply();
+            BigInteger highest = total;
+            BigInteger lowest = (total - 25) > 0 ? total - 25 : 0;
+
+            var tokens = new List<TokenState>();
+            while(lowest != highest)
+            {
+                var token = GetDomainNameByIndex(highest);
+
+                if (token == null)
+                {
+                    if(lowest > 0)
+                    {
+                        lowest -= 1;
+                    }
+                }
+                else
+                {
+                    tokens.Add(token);
+                }
+                highest -= 1;
+            }
+
+            return tokens;
+        }
     }
 }

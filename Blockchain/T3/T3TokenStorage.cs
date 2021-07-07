@@ -14,12 +14,13 @@ namespace T3
     public partial class T3Contract : SmartContract
     {
         protected static StorageMap TokenStorageMap() => new StorageMap(Storage.CurrentContext, "T3TOKEN");
+        protected static StorageMap TokenIndexStorageMap() => new StorageMap(Storage.CurrentContext, "T3INDEX");
 
         protected static void AddToStorage(ByteString tokenId, ByteString value) => TokenStorageMap().Put(tokenId, value);
         protected static ByteString GetFromStorage(ByteString tokenId) => TokenStorageMap().Get(tokenId);
         protected static void DeleteFromStorage(ByteString tokenId) => TokenStorageMap().Delete(tokenId);
 
-        protected static TokenState ValueOf(ByteString tokenId) => GetTokenFromStorage(tokenId);
+        public static TokenState ValueOf(ByteString tokenId) => GetTokenFromStorage(tokenId);
         public static Iterator TokenKeys() => TokenStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
         public static Iterator Tokens() => TokenStorageMap().Find(FindOptions.RemovePrefix);
         private static UInt160 OwnerOf(ByteString tokenId) => ValueOf(tokenId).Owner;
@@ -27,6 +28,11 @@ namespace T3
 
         protected static void AddTokenToStorage(ByteString tokenId, TokenState token, BigInteger increment)
         {
+            if(increment > 0)
+            {
+                token.Index = GetIndexForNewToken(tokenId);
+            }
+
             token.Id = tokenId;
             var tokenSerialized = StdLib.Serialize(token);
 
@@ -72,7 +78,8 @@ namespace T3
             var tokenCategory = GetFromStorage(tokenId);
             if(tokenCategory == null)
             {
-                throw new Exception("Token does not exist");
+                return null;
+                //throw new Exception("Token does not exist");
             }
 
             if(tokenCategory == Categories.ART)

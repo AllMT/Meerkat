@@ -1,0 +1,83 @@
+.nft-container
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nft-img-container
+{
+    height: 350px;
+    width: 40%;
+    
+}
+
+img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.token-badge
+{
+    bottom: 5px;
+    left: 5px;
+
+    > .mat-badge-content 
+    {
+        width: auto;
+        border-radius: 5px;
+        right: unset !important;
+        padding: 0 10px;
+        background: #ec008c;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+}
+
+.nft-properties
+{
+    width: 60%;
+
+    .properties
+    {
+        padding-left: 5px;
+    }
+}
+
+.token-options-container
+{
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.my-token-button
+{
+    color: white;
+    padding: 5px 45px;
+    font-size: 20px;
+    margin-right: 10px;
+    background: #ec008c;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.nft-header
+{
+    display: flex;
+    
+    h1
+    {
+        flex-grow: 1;
+    }
+
+    
+    .token-price-img
+    {
+        width: 20px;
+        height: 20px;
+        position: relative;
+        top: 5px;
+    }
+
+}

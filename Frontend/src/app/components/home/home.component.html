@@ -1,3 +1,22 @@
-<p>home works!</p>
+<div *ngIf="loading">
+    <app-loading></app-loading>
+</div>
 
-<app-nft></app-nft>
+<div *ngIf="!loading" class="home-container">
+    
+    <div class="vertical-space"></div>
+
+    <app-dashboard [showMyTokens]="true"></app-dashboard>
+
+    <div class="vertical-space"></div>
+
+    <app-row [title]="latestNFTTitle" [tokens]="latestTokens"></app-row>
+
+    <div class="vertical-space"></div>
+
+    <app-row [title]="latestListedNFTTitle" [tokens]="latestListedTokens"></app-row>
+
+    <div class="vertical-space"></div>
+
+    <app-categories></app-categories>
+</div>

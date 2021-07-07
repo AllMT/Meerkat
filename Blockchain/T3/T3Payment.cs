@@ -54,6 +54,11 @@ namespace T3
                 }
 
                 var token = ValueOf(tokenId);
+                if(token == null)
+                {
+                    throw new Exception("Token does not exist");
+                }
+                
                 if(amount < token.Value.MarketData.Price)
                 {
                     throw new Exception("Not enough payment");
@@ -75,8 +80,8 @@ namespace T3
                 UpdateBalance(oldOwner, tokenId, -1);
                 UpdateBalance(token.Owner, tokenId, +1);
                 PostTransfer(oldOwner, token.Owner, tokenId, null);
-                RemoveAllWhitelist(tokenId);
-                SetWhitelist(from, tokenId);
+                // RemoveAllWhitelist(tokenId);
+                // SetWhitelist(from, tokenId);
             }
             else
             {

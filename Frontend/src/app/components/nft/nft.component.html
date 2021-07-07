@@ -1,1 +1,27 @@
-<p>nft works!</p>
+<div (click)="details(token.Index)">
+
+    <div class="nft-img-container">
+        <span matBadge="{{token.Category}}" class="token-badge"></span>
+        <span *ngIf="token.IsListed" matBadge="{{token.ListedType}}" class="token-listing-badge"></span>
+        <img src="{{token.Image}}">
+    </div>
+
+    <div class="nft-properties">
+        <p>{{token.Owner.value}}</p>
+        <span class="nft-name"><span>{{token.Name}}</span><span *ngIf="token.IsListed"><img class="token-price-img" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1785.png"> {{token.Price}}</span></span>
+    </div>
+</div>
+
+
+<!-- <a [routerLink]="['nft']" [queryParams]="{id: token.Id}">
+    <div class="nft-img-container">
+        <span matBadge="{{token.Category}}" class="token-badge"></span>
+        <img src="{{token.Image}}">
+    </div>
+
+    <div class="nft-properties">
+        <p>{{token.Owner}}</p>
+        <p>{{token.Name}}</p>
+        <p>{{token.Description}}</p>
+    </div>
+</a> -->

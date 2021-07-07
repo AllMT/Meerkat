@@ -1,0 +1,13 @@
+<mat-toolbar>
+    <a href="/"><span>Meerkat</span></a>
+    <span class="example-spacer"></span>
+    <span class="top-nav-user">{{address}}</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <img src="../../../../assets/default.jpg" alt="" class="img-fluid rounded-circle z-depth-0">
+    </button>
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="myTokens()">My tokens</button>
+        <button mat-menu-item (click)="newToken()">Mint</button>
+    </mat-menu>
+</mat-toolbar>

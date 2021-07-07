@@ -17,7 +17,6 @@ namespace T3.Models
             Name = propertiesMap.HasKey("name") ?  propertiesMap["name"] : null;
             Description = propertiesMap.HasKey("description") ?  propertiesMap["description"] : null;
             Image = propertiesMap.HasKey("image") ?  propertiesMap["image"] : null;
-            TokenURI = propertiesMap.HasKey("tokenURI") ?  propertiesMap["tokenURI"] : null;
             LockedContent = propertiesMap.HasKey("lockedContent") ?  propertiesMap["lockedContent"] : null;
             Collection = propertiesMap.HasKey("collection") ?  propertiesMap["collection"] : null;
             Category = propertiesMap.HasKey("category") ?  propertiesMap["category"] : null;
@@ -28,7 +27,6 @@ namespace T3.Models
         public string Category;
         public string Collection;
         public string Image;
-        public string TokenURI;
         public string LockedContent;
     }
 }

@@ -15,13 +15,13 @@ namespace T3
     [ContractPermission("*", "onNEP11Payment")]
     public partial class T3Contract : SmartContract
     {
-        public static bool MintToken(ByteString tokenId, string properties)
+        public static bool MintToken(string properties)
         {
-            if(DoesTokenExist(tokenId))
-            {
-                throw new Exception("Token already exists");
-            }
-
+            // if(DoesTokenExist(tokenId))
+            // {
+            //     throw new Exception("Token already exists");
+            // }
+            var tokenId = NewTokenId();
             Mint(tokenId, GetTokenState(properties));
             return true;
         }
@@ -48,81 +48,15 @@ namespace T3
             return list;
         }
 
-        public static List<string> TestGetAllTokenIds()
+        public static List<TokenState> GetMarketTokens()
         {
-            var list = new List<string>();
-            var iterator = TokenKeys();
-
-            while(iterator.Next())
-            {
-                list.Add((string)iterator.Value);
-            }
-
-            return list;
-        }
-
-        public static List<string> TestGetAllTokens()
-        {
-            var list = new List<string>();
-            var iterator = Tokens();
-
-            while(iterator.Next())
-            {
-                list.Add((string)iterator.Value);
-            }
-
-            return list;
-        }
-
-        public static List<string> TestGetAllMarketTokenIds()
-        {
-            var list = new List<string>();
-            var iterator = MarketTokens();
-
-            while(iterator.Next())
-            {
-                list.Add((string)iterator.Value);
-            }
-
-            return list;
-        }
-
-        public static string GetTokenProperties(ByteString tokenId)
-        {
-            var token = ValueOf(tokenId);
-
-            var map = new Map<string, object>();
-            map["name"] = token.Value.TokenData.Name;
-            map["description"] = token.Value.TokenData.Description;
-            map["image"] = token.Value.TokenData.Image;
-            map["tokenURI"] = token.Value.TokenData.TokenURI;
-            map["category"] = token.Value.TokenData.Category;
-            map["collection"] = token.Value.TokenData.Collection;
-
-            // if(IsWhitelisted(GetSenderAddress(), tokenId))
-            // {
-            //     map["lockedContent"] = token.Value.TokenData.LockedContent;
-            // }
-
-            if(token.Value.MarketData != null)
-            {
-                map["price"] = token.Value.MarketData.Price;
-                map["listingType"] = token.Value.MarketData.ListingType;
-                map["purchaseType"] = token.Value.MarketData.PurchaseType;
-            }
-
-            return StdLib.JsonSerialize(map);
-        }
-
-        public static List<TokenState> GetLatestTokens()
-        {
-            var total = T3Supply();
-            var lowest = (total - 10) > 0 ? 0 : total - 10;
+            var total = T3MarketSupply();
+            var lowest = (total - 25) > 0 ? total - 25 : 0;
 
             var tokens = new List<TokenState>();
 
-            var tokenIterator = TokenKeys();
-            while(tokenIterator.Next() || (lowest == total))
+            var tokenIterator = MarketTokens();
+            while(tokenIterator.Next() && (lowest != total))
             {
                 tokens.Add(ValueOf((ByteString)tokenIterator.Value));
                 lowest += 1;
@@ -131,19 +65,97 @@ namespace T3
             return tokens;
         }
 
-        public static List<TokenState> TestGetLatestArtTokensByIndex()
+        public static List<TokenState> GetMainPageMarketTokens()
         {
-            var total = T3ArtIndexSupply() + 1;
-            BigInteger lowest = (total - 10) < 0 ? 1 : total - 10;
+            var total = T3MarketSupply();
+            var lowest = (total - 3) > 0 ? total - 3 : 0;
 
             var tokens = new List<TokenState>();
-            while(lowest != total)
+
+            var tokenIterator = MarketTokens();
+            while(tokenIterator.Next() && (lowest != total))
             {
-                tokens.Add(GetArtByIndex(lowest));
+                tokens.Add(ValueOf((ByteString)tokenIterator.Value));
                 lowest += 1;
             }
 
             return tokens;
+        }
+
+        public static List<TokenState> GetLatestTokens()
+        {
+            var total = T3TokenIndexSupply();   
+            BigInteger highest = total;
+            BigInteger lowest = (total - 25) > 0 ? total - 25 : 0;
+
+            var tokens = new List<TokenState>();
+            while(lowest != highest)
+            {
+                var token = GetTokenByIndex(highest);
+
+                if (token == null)
+                {
+                    if(lowest > 0)
+                    {
+                        lowest -= 1;
+                    }
+                }
+                else
+                {
+                    tokens.Add(token);
+                }
+                highest -= 1;
+            }
+
+            return tokens;
+        }
+
+        public static List<TokenState> GetMainPageLatestTokens()
+        {
+            var total = T3TokenIndexSupply();
+            BigInteger highest = total;
+            BigInteger lowest = (total - 3) > 0 ? total - 3 : 0;
+
+            var tokens = new List<TokenState>();
+            while(lowest != highest)
+            {
+                var token = GetTokenByIndex(highest);
+
+                if (token == null)
+                {
+                    if(lowest > 0)
+                    {
+                        lowest -= 1;
+                    }
+                }
+                else
+                {
+                    tokens.Add(token);
+                }
+                highest -= 1;
+            }
+
+            return tokens;
+        }
+
+
+        public static List<TokenState> GetTokensFor(UInt160 owner)
+        {
+            var tokens = new List<TokenState>();
+
+            var tokenIterator = TokensOf(owner);
+            while(tokenIterator.Next())
+            {
+                tokens.Add(ValueOf((ByteString)tokenIterator.Value));
+            }
+
+            return tokens;
+        }
+
+        public static TokenState GetTokenByIndex(BigInteger index)
+        {
+            var tokenId = TokenIndexStorageMap().Get((ByteString)index);
+            return (TokenState)GetTokenFromStorage(tokenId);
         }
 
         public static void TestBurnAll()
@@ -155,8 +167,6 @@ namespace T3
             }
         }
 
-
-        public static TokenState TestGetTokenProperties(ByteString tokenId) => ValueOf(tokenId);
 
         // public static TicketPaginate GetTickets(int page)
         // {

@@ -1,0 +1,6 @@
+<h1 class="title-header">{{title}}</h1>
+<div class="row-container">
+    <div class="row-tokens" *ngFor="let token of tokens">
+        <app-nft [token]="token"></app-nft>
+    </div>
+</div>

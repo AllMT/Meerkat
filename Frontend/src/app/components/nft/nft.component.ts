@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { T3Service } from 'src/app/dapp/t3/t3.service';
 import { TokenStateService } from 'src/app/dapp/token-state/token-state.service';
 
@@ -9,15 +10,15 @@ import { TokenStateService } from 'src/app/dapp/token-state/token-state.service'
 })
 export class NftComponent implements OnInit {
 
-  tokens: TokenStateService[];
+  @Input()
+  token: TokenStateService;
 
-  constructor(private T3: T3Service) { }
+  constructor(private router: Router, private T3: T3Service) { }
 
-  ngOnInit(): void {
-    this.T3.tokens.subscribe(data =>
-      {
-        this.tokens = data;
-        console.log(this.tokens);
-      });
+  ngOnInit(): void { }
+
+  details(tokenIndex: string)
+  {
+    this.router.navigate(["nft/" + tokenIndex])
   }
 }

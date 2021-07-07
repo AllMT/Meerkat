@@ -23,6 +23,14 @@ namespace T3
             return (BigInteger)T3SupplyMap().Get(owner);
         }
 
+        protected static BigInteger GetIndexForNewToken(ByteString tokenId)
+        {
+            var tokenIndexSupply = T3TokenIndexSupply() + 1;
+            T3SupplyMap().Put(TokenIndexSupplyKey, tokenIndexSupply);
+            TokenIndexStorageMap().Put((ByteString)tokenIndexSupply, tokenId);
+            return tokenIndexSupply;
+        }
+
         protected static void UpdateTotalNFTSupply(BigInteger increment)
         {
             var totalSupply = T3Supply();

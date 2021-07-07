@@ -49,5 +49,33 @@ namespace T3
                 T3SupplyMap().Put(MUSIC_SUPPLY_KEY, totalSupply);
             }
         }
+
+        public static List<TokenState> GetLatestMusicTokensByIndex()
+        {
+            var total = T3MusicIndexSupply();
+            BigInteger highest = total;
+            BigInteger lowest = (total - 25) > 0 ? total - 25 : 0;
+
+            var tokens = new List<TokenState>();
+            while(lowest != highest)
+            {
+                var token = GetDomainNameByIndex(highest);
+
+                if (token == null)
+                {
+                    if(lowest > 0)
+                    {
+                        lowest -= 1;
+                    }
+                }
+                else
+                {
+                    tokens.Add(token);
+                }
+                highest -= 1;
+            }
+
+            return tokens;
+        }
     }
 }

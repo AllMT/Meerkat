@@ -15,9 +15,11 @@ namespace T3
     {
         private static readonly string TotalNFTOnMarketKey = "T3TOTALMARKETNFTKEY";
         private static readonly string TotalNFTSupplyKey = "T3TOTALNFTSUPPLYKEY";
+        private static readonly string TokenIndexSupplyKey = "T3TOKENINDEXSUPPLYKEY";
 
         private static StorageMap T3SupplyMap() => new StorageMap(Storage.CurrentContext, "T3NFTS");
         public static BigInteger T3Supply() => (BigInteger)T3SupplyMap().Get(TotalNFTSupplyKey);
+        public static BigInteger T3TokenIndexSupply() => (BigInteger)T3SupplyMap().Get(TokenIndexSupplyKey);
         public static BigInteger T3MarketSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTOnMarketKey);
         
         private static string ART_SUPPLY_KEY = "T3ASKEY";

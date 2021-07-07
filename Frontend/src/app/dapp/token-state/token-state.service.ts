@@ -1,36 +1,50 @@
 import { u } from '@cityofzion/neon-js'
+import { BehaviorSubject } from 'rxjs';
 import { NeoLineN3Interface } from 'src/app/neo-line/neo-line-n3-interface';
 
 export class TokenStateService {
 
   Id: string;
-  Owner: string;
+  Owner = new BehaviorSubject('');
+  Index: string;
+
   Name: string;
   Description: string;
   Category: string;
   Collection: string;
   Image: string;
-  TokenURI: string;
   LockedContent: string;
 
-  
+  IsListed: boolean;
+  Price: Number;
+  AcctualPrice: string;
+  PurchaseType: string;
+  ListedType: string;
 
   constructor(neoLine: NeoLineN3Interface, data: any = null) {
-
     this.Id = data[0].value;
-    neoLine.ScriptHashToAddress({ scriptHash: u.reverseHex(u.base642hex(data[1].value)) }).then(e => this.Owner = e.address);
-    // console.log(data[2].value[0].value);
+    this.Index = data[1].value;
+    neoLine.ScriptHashToAddress({ scriptHash: u.reverseHex(u.base642hex(data[2].value)) }).then(e => this.Owner.next(e.address));
 
-    // const lockedContent = data[1].value[0].value[6].value;
+    var tokenProperties = data[3].value[0];
+    var marketProperties = data[3].value[1];
+    
+    const lockedContent = tokenProperties.value[5].value;
 
-    // console.log("name: " + atob(data[1].value[0].value[0].value));
-    // console.log("description: " + atob(data[1].value[0].value[1].value));
-    // console.log("category: " + atob(data[1].value[0].value[2].value));
-    // console.log("collection: " + atob(data[1].value[0].value[3].value));
-    // console.log("image: " + atob(data[1].value[0].value[4].value));
-    // console.log("tokenUri: " + atob(data[1].value[0].value[5].value));
-    // console.log("lockedContent: " + (lockedContent === undefined ? "" : atob(lockedContent)));
+    this.Name = atob(tokenProperties.value[0].value);
+    this.Description = atob(tokenProperties.value[1].value);
+    this.Category = atob(tokenProperties.value[2].value);
+    this.Collection = atob(tokenProperties.value[3].value);
+    this.Image = atob(tokenProperties.value[4].value);
+    this.LockedContent =  (lockedContent === undefined ? "" : atob(lockedContent));
 
-    //console.log(this.Id + " " + this.Owner);
+    if(marketProperties.value !== undefined)
+    {
+      this.IsListed = true;
+      this.Price = parseFloat(marketProperties.value[0].value)/100000000;
+      this.AcctualPrice = marketProperties.value[0].value;
+      this.ListedType = atob(marketProperties.value[1].value);
+      this.PurchaseType = atob(marketProperties.value[2].value);
+    }
    }
 }

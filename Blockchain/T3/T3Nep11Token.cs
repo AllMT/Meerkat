@@ -93,6 +93,11 @@ namespace T3
 
         public static void Burn(ByteString tokenId)
         {
+            if(!IsTokenOwnerTheSender(tokenId))
+            {
+                throw new Exception("Not your tokens!");
+            }
+
             var token = ValueOf(tokenId);
             DeleteTokenFromStorage(tokenId);
             DeleteTokenFromMarket(tokenId);
@@ -101,7 +106,7 @@ namespace T3
             PostTransfer(token.Owner, null, tokenId, null);
         }
 
-        public static ByteString NewTokenId()
+        private static ByteString NewTokenId()
         {
             StorageContext context = Storage.CurrentContext;
             byte[] key = new byte[] { 0x02 };

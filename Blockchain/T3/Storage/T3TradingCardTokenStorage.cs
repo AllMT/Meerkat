@@ -48,5 +48,33 @@ namespace T3
                 T3SupplyMap().Put(TRADING_CARD_SUPPLY_KEY, totalSupply);
             }
         }
+
+        public static List<TokenState> GetLatestTradingCardsTokensByIndex()
+        {
+            var total = T3TradingCardIndexSupply();
+            BigInteger highest = total;
+            BigInteger lowest = (total - 25) > 0 ? total - 25 : 0;
+
+            var tokens = new List<TokenState>();
+            while(lowest != highest)
+            {
+                var token = GetTradingCardByIndex(highest);
+
+                if (token == null)
+                {
+                    if(lowest > 0)
+                    {
+                        lowest -= 1;
+                    }
+                }
+                else
+                {
+                    tokens.Add(token);
+                }
+                highest -= 1;
+            }
+
+            return tokens;
+        }
     }
 }

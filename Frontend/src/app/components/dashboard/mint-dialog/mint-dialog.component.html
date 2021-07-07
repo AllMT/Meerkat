@@ -1,0 +1,52 @@
+<h1>Mint a new token</h1>
+
+
+<form [formGroup]="token" class="mint-dialog-container">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Token name" formControlName="name">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Token description" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Image</mat-label>
+        <input matInput placeholder="Image url" formControlName="image">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Private content</mat-label>
+        <input matInput placeholder="Private content url" formControlName="lockedContent">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Category</mat-label>
+        <select matNativeControl required formControlName="category">
+            <option value="Art">Art</option>
+            <option value="Music">Music</option>
+            <option value="Domain Names">Domain Names</option>
+            <option value="Virtual worlds">Virtual worlds</option>
+            <option value="Trading Cards">Trading Cards</option>
+            <option value="Collectibles">Collectibles</option>
+            <option value="Sports">Sports</option>
+            <option value="Utility">Utility</option>
+        </select>
+      </mat-form-field>
+
+      
+
+      <mat-form-field>
+        <mat-label>Collection</mat-label>
+        <input matInput placeholder="Token collection" formControlName="collection">
+      </mat-form-field>
+
+  </form>
+
+
+<div class="mint-dialog-buttons-container">
+    <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="mintNewToken()">Mint</button>
+</div>

@@ -1,0 +1,72 @@
+.nft-img-container
+{
+    height: 250px;
+}
+
+img
+{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.token-badge
+{
+    bottom: 5px;
+    left: 5px;
+
+    > .mat-badge-content 
+    {
+        width: auto;
+        border-radius: 5px;
+        right: unset !important;
+        padding: 0 10px;
+        background: #ec008c;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+}
+
+.token-listing-badge
+{
+    bottom: 220px;
+    left: 5px;
+    > .mat-badge-content 
+    {
+        width: auto;
+        border-radius: 5px;
+        right: unset !important;
+        padding: 0 10px;
+        background: #ec008c;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #fc6767, #ec008c);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #fc6767, #ec008c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+}
+
+
+.nft-properties
+{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    
+    .nft-name
+    {
+        display: flex;
+        
+        span:first-child
+        {
+            flex-grow: 1;
+            font-weight: bold;  
+        }
+    }
+}
+
+.token-price-img
+{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    top: 3px;
+}

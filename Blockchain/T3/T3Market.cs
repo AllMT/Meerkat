@@ -20,6 +20,13 @@ namespace T3
         protected static StorageMap MarketStorageMap() => new StorageMap(Storage.CurrentContext, MARKET_MAP);
 
         protected static void AddTokenToMarket(ByteString tokenId) => MarketStorageMap().Put(tokenId, 0);
+
+        public static void RemoveMarketListing(ByteString tokenId)
+        {
+            VerifyTokenBelongsToSender(tokenId);
+            DeleteTokenFromMarket(tokenId);
+        }
+
         protected static void DeleteTokenFromMarket(ByteString tokenId) 
         {
             var token = MarketStorageMap().Get(tokenId);
@@ -27,18 +34,16 @@ namespace T3
             if(token != null)
             {
                 MarketStorageMap().Delete(tokenId);
+
+                var tokenProp = ValueOf(tokenId);
+                tokenProp.Value.MarketData = null;
+                AddTokenToStorage(tokenId, tokenProp, 0);
+
                 UpdateTotalTokensOnMarket(-1);
             }
         } 
 
-        public static Iterator MarketTokens() => MarketStorageMap().Find(FindOptions.RemovePrefix);
-
-        public static void UpdateListing(ByteString TokenId, string options)
-        {
-            VerifyTokenBelongsToSender(TokenId);
-            VerifyTokenIsOnMarket(TokenId);
-            UpdateTokenMarketData(TokenId, options);
-        }
+        protected static Iterator MarketTokens() => MarketStorageMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
 
         public void ListToken(ByteString TokenId, string options)
         {
@@ -62,7 +67,7 @@ namespace T3
 
         private static void VerifyTokenBelongsToSender(ByteString tokenId)
         {            
-            if(IsTokenOwnerTheSender(tokenId))
+            if(!IsTokenOwnerTheSender(tokenId))
             {
                 throw new Exception("The token does not belong to you");
             }

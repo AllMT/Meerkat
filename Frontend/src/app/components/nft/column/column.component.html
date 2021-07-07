@@ -1,0 +1,9 @@
+<div class="column-container">
+    <h1>{{title}}</h1>
+</div>
+
+<div class="column-container">
+    <div class="column-tokens" *ngFor="let token of tokens">
+        <app-nft [token]="token"></app-nft>
+    </div>
+</div>

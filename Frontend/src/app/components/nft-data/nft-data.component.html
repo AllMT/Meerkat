@@ -1,0 +1,34 @@
+<div class="main-container">
+    <div class="vertical-space"></div>
+    <app-dashboard [showMyTokens]="true" [showHomeButton]="true"></app-dashboard>
+    <div class="vertical-space"></div>
+
+    <div class="nft-container" *ngIf="token">
+
+        <div class="nft-img-container">
+            <img src="{{token.Image}}">
+        </div>
+    
+        <div class="nft-properties">
+            <div class="properties">
+                <span class="nft-header"><h1>{{token.Name}}</h1> <span *ngIf="token.IsListed"><img class="token-price-img" src="https://s2.coinmarketcap.com/static/img/coins/64x64/1785.png"> {{token.Price}}</span></span>
+                <p>{{token.Description}}</p>
+                <a href="{{categoryUrl}}">{{token.Category}}</a>
+                <p>{{token.Collection}}</p>
+            </div>
+        </div>
+        <p>{{token.Owner.value}}</p>
+    </div>
+
+
+    <div class="token-options-container" *ngIf="isMine">
+        <button class="my-token-button" mat-flat-button *ngIf="token.IsListed" (click)="removeListing()">Remove listing</button>
+        <button class="my-token-button" mat-flat-button *ngIf="!token.IsListed" (click)="list()">List Token</button>
+        <button class="my-token-button" mat-flat-button (click)="burn()">Burn</button>
+    </div>
+
+    <div class="token-options-container" *ngIf="!isMine">
+        <button class="my-token-button" mat-flat-button (click)="buy()">Buy</button>
+    </div>
+    
+</div>

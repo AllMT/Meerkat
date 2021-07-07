@@ -34,10 +34,15 @@ namespace T3
         }
         
         protected static TokenState GetArt(ByteString tokenId) => (TokenState)ArtMap().GetObject(tokenId);
-        protected static TokenState GetArtByIndex(BigInteger index)
+        private static TokenState GetArtByIndex(BigInteger index)
         {
             var tokenId = ArtIndexMap().Get((ByteString)index);
-            return (TokenState)ArtMap().GetObject(tokenId);
+            var token = ArtMap().Get(tokenId);
+            if(token == null)
+            {
+                return null;
+            }
+            return (TokenState)StdLib.Deserialize(token);
         }
 
         private static void UpdateTotalArtSupply(BigInteger increment)
@@ -51,6 +56,32 @@ namespace T3
             }
         }
 
-        public static Iterator ArtTokens() => ArtMap().Find(FindOptions.KeysOnly | FindOptions.RemovePrefix);
+        public static List<TokenState> GetLatestArtTokensByIndex()
+        {
+            var total = T3ArtIndexSupply();
+            BigInteger highest = total;
+            BigInteger lowest = (total - 25) > 0 ? total - 25 : 0;
+
+            var tokens = new List<TokenState>();
+            while(lowest != highest)
+            {
+                var token = GetArtByIndex(highest);
+
+                if (token == null)
+                {
+                    if(lowest > 0)
+                    {
+                        lowest -= 1;
+                    }
+                }
+                else
+                {
+                    tokens.Add(token);
+                }
+                highest -= 1;
+            }
+
+            return tokens;
+        }
     }
 }
