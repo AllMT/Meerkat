@@ -67,19 +67,37 @@ namespace T3
 
         public static List<TokenState> GetMainPageMarketTokens()
         {
-            var total = T3MarketSupply();
-            var lowest = (total - 3) > 0 ? total - 3 : 0;
+
+            var total = T3MarketIndexSupply();
+            BigInteger highest = total;
+            BigInteger lowest = (total - 3) > 0 ? total - 3 : 0;
 
             var tokens = new List<TokenState>();
-
-            var tokenIterator = MarketTokens();
-            while(tokenIterator.Next() && (lowest != total))
+            while(lowest != highest)
             {
-                tokens.Add(ValueOf((ByteString)tokenIterator.Value));
-                lowest += 1;
+                var token = GetMarketTokenByIndex(highest);
+
+                if (token == null)
+                {
+                    if(lowest > 0)
+                    {
+                        lowest -= 1;
+                    }
+                }
+                else
+                {
+                    tokens.Add(token);
+                }
+                highest -= 1;
             }
 
             return tokens;
+        }
+
+        private static TokenState GetMarketTokenByIndex(BigInteger index)
+        {
+            var tokenId = MarketTokenIndexStorageMap().Get((ByteString)index);
+            return (TokenState)GetTokenFromStorage(tokenId);
         }
 
         public static List<TokenState> GetLatestTokens()
@@ -157,43 +175,5 @@ namespace T3
             var tokenId = TokenIndexStorageMap().Get((ByteString)index);
             return (TokenState)GetTokenFromStorage(tokenId);
         }
-
-        public static void TestBurnAll()
-        {
-            var tokenIterator = TokenKeys();
-            while(tokenIterator.Next())
-            {
-                Burn((ByteString)tokenIterator.Value);
-            }
-        }
-
-
-        // public static TicketPaginate GetTickets(int page)
-        // {
-        //     BigInteger height = GetTicketHeight();
-        //     BigInteger itemsPerPage = defaultItemsPerPage > height ? height : defaultItemsPerPage;
-        //     BigInteger totalPages = height > itemsPerPage ? height % itemsPerPage == 0 ? (height / itemsPerPage) : (height / itemsPerPage) + 1 : 1;
-        //     BigInteger startAt = height - (itemsPerPage * (page - 1));
-        //     BigInteger endAt = startAt > itemsPerPage ? startAt - itemsPerPage : 0;
-
-        //     List<TicketRecord> list = new List<TicketRecord>();
-        //     StorageMap Tickets = new StorageMap(Storage.CurrentContext, TICKET_PREFIX);
-        //     for (BigInteger i = startAt; i != endAt; i--)
-        //     {
-        //         ByteString item = Tickets.Get(Helper.ToByteString(Helper.ToByteArray(Helper.ToByte(i))));
-        //         if (item != null)
-        //         {
-        //             list.Add((TicketRecord)StdLib.Deserialize(item));
-        //         }
-        //     }
-        //     TicketPaginate paginate = new TicketPaginate
-        //     {
-        //         totalItems = height,
-        //         totalPages = totalPages,
-        //         currentpage = page,
-        //         items = list
-        //     };
-        //     return paginate;
-        // }
     }
 }

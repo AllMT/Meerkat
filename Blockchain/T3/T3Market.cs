@@ -18,6 +18,7 @@ namespace T3
 
         private static readonly string MARKET_MAP = "T3MARKET";
         protected static StorageMap MarketStorageMap() => new StorageMap(Storage.CurrentContext, MARKET_MAP);
+        protected static StorageMap MarketTokenIndexStorageMap() => new StorageMap(Storage.CurrentContext, "T3MARKETINDEX");
 
         protected static void AddTokenToMarket(ByteString tokenId) => MarketStorageMap().Put(tokenId, 0);
 
@@ -54,15 +55,14 @@ namespace T3
             OnMarket(TokenId);
 
             UpdateTotalTokensOnMarket(+1);
+            AddMarketIndexForToken(TokenId);
         }
 
-        private static void UpdateTokenMarketData(ByteString TokenId, string options)
+        protected static void AddMarketIndexForToken(ByteString tokenId)
         {
-            var marketData = GetMarketData(options);
-            
-            var token = ValueOf(TokenId);
-            token.Value.MarketData = marketData;
-            AddTokenToStorage(TokenId, token, 0);
+            var tokenIndexSupply = T3MarketIndexSupply() + 1;
+            T3SupplyMap().Put(MarketIndexSupplyKey, tokenIndexSupply);
+            MarketTokenIndexStorageMap().Put((ByteString)tokenIndexSupply, tokenId);
         }
 
         private static void VerifyTokenBelongsToSender(ByteString tokenId)
