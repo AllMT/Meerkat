@@ -58,6 +58,15 @@ namespace T3
             AddMarketIndexForToken(TokenId);
         }
 
+        private static void UpdateTokenMarketData(ByteString TokenId, string options)
+        {
+            var marketData = GetMarketData(options);
+            
+            var token = ValueOf(TokenId);
+            token.Value.MarketData = marketData;
+            AddTokenToStorage(TokenId, token, 0);
+        }
+
         protected static void AddMarketIndexForToken(ByteString tokenId)
         {
             var tokenIndexSupply = T3MarketIndexSupply() + 1;

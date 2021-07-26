@@ -21,7 +21,7 @@ namespace T3
         private static StorageMap T3SupplyMap() => new StorageMap(Storage.CurrentContext, "T3NFTS");
         public static BigInteger T3Supply() => (BigInteger)T3SupplyMap().Get(TotalNFTSupplyKey);
         public static BigInteger T3TokenIndexSupply() => (BigInteger)T3SupplyMap().Get(TokenIndexSupplyKey);
-        public static BigInteger T3MarketIndexSupply() => (BigInteger)T3SupplyMap().Get(T3MARKETINDEXSUPPLYKEY);
+        public static BigInteger T3MarketIndexSupply() => (BigInteger)T3SupplyMap().Get(MarketIndexSupplyKey);
         public static BigInteger T3MarketSupply() => (BigInteger)T3SupplyMap().Get(TotalNFTOnMarketKey);
         
         private static string ART_SUPPLY_KEY = "T3ASKEY";

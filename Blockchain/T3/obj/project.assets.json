@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net5.0": {
-      "Neo.SmartContract.Framework/3.0.0-rc3": {
+      "Neo.SmartContract.Framework/3.0.0-rc4": {
         "type": "package",
         "compile": {
           "lib/net5.0/Neo.SmartContract.Framework.dll": {}
@@ -14,15 +14,15 @@
     }
   },
   "libraries": {
-    "Neo.SmartContract.Framework/3.0.0-rc3": {
-      "sha512": "k+FYdRULgVkUxQB0FTUSW6Ldel1BBRBS5pIRPHncEYCKGw/grBA2m+t+LlOWWY7PE9yTA3OIIAl7sq+mOGdUrg==",
+    "Neo.SmartContract.Framework/3.0.0-rc4": {
+      "sha512": "GfT0thG1qgyRbpR8ZkHPxTTUkhTyc6eaZ4iKuJ0YEt9buc1oH93CugVS4ZutcUqktrpyZFOQCsYD95HhjWruTg==",
       "type": "package",
-      "path": "neo.smartcontract.framework/3.0.0-rc3",
+      "path": "neo.smartcontract.framework/3.0.0-rc4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net5.0/Neo.SmartContract.Framework.dll",
-        "neo.smartcontract.framework.3.0.0-rc3.nupkg.sha512",
+        "neo.smartcontract.framework.3.0.0-rc4.nupkg.sha512",
         "neo.smartcontract.framework.nuspec",
         "src/ByteString.cs",
         "src/CallingConventionAttribute.cs",
@@ -84,34 +84,28 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Neo.SmartContract.Framework >= 3.0.0-rc3"
+      "Neo.SmartContract.Framework >= 3.0.0-rc4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\S\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "/home/s/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj",
+      "projectUniqueName": "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/T3Contract.csproj",
       "projectName": "T3Contract",
-      "projectPath": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj",
-      "packagesPath": "C:\\Users\\S\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\obj\\",
+      "projectPath": "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/T3Contract.csproj",
+      "packagesPath": "/home/s/.nuget/packages/",
+      "outputPath": "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\S\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/s/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -132,7 +126,7 @@
         "dependencies": {
           "Neo.SmartContract.Framework": {
             "target": "Package",
-            "version": "[3.0.0-rc3, )"
+            "version": "[3.0.0-rc4, )"
           }
         },
         "imports": [
@@ -150,7 +144,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.302/RuntimeIdentifierGraph.json"
       }
     }
   }

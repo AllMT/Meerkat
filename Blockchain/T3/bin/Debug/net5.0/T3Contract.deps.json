@@ -8,13 +8,13 @@
     ".NETCoreApp,Version=v5.0": {
       "T3Contract/1.0.0": {
         "dependencies": {
-          "Neo.SmartContract.Framework": "3.0.0-rc3"
+          "Neo.SmartContract.Framework": "3.0.0-rc4"
         },
         "runtime": {
           "T3Contract.dll": {}
         }
       },
-      "Neo.SmartContract.Framework/3.0.0-rc3": {
+      "Neo.SmartContract.Framework/3.0.0-rc4": {
         "runtime": {
           "lib/net5.0/Neo.SmartContract.Framework.dll": {
             "assemblyVersion": "3.0.0.0",
@@ -30,12 +30,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Neo.SmartContract.Framework/3.0.0-rc3": {
+    "Neo.SmartContract.Framework/3.0.0-rc4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-k+FYdRULgVkUxQB0FTUSW6Ldel1BBRBS5pIRPHncEYCKGw/grBA2m+t+LlOWWY7PE9yTA3OIIAl7sq+mOGdUrg==",
-      "path": "neo.smartcontract.framework/3.0.0-rc3",
-      "hashPath": "neo.smartcontract.framework.3.0.0-rc3.nupkg.sha512"
+      "sha512": "sha512-GfT0thG1qgyRbpR8ZkHPxTTUkhTyc6eaZ4iKuJ0YEt9buc1oH93CugVS4ZutcUqktrpyZFOQCsYD95HhjWruTg==",
+      "path": "neo.smartcontract.framework/3.0.0-rc4",
+      "hashPath": "neo.smartcontract.framework.3.0.0-rc4.nupkg.sha512"
     }
   }
 }

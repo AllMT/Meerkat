@@ -1,30 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj": {}
+    "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/T3Contract.csproj": {}
   },
   "projects": {
-    "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj": {
+    "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/T3Contract.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj",
-        "projectName": "T3",
-        "projectPath": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\T3Contract.csproj",
-        "packagesPath": "C:\\Users\\S\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\S\\Documents\\GitHub\\Meerkat\\Blockchain\\T3\\obj\\",
+        "projectUniqueName": "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/T3Contract.csproj",
+        "projectName": "T3Contract",
+        "projectPath": "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/T3Contract.csproj",
+        "packagesPath": "/home/s/.nuget/packages/",
+        "outputPath": "/home/s/Documents/GitHub/Meerkat/Blockchain/T3/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\S\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/home/s/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,7 +40,7 @@
           "dependencies": {
             "Neo.SmartContract.Framework": {
               "target": "Package",
-              "version": "[3.0.0-rc3, )"
+              "version": "[3.0.0-rc4, )"
             }
           },
           "imports": [
@@ -63,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.302/RuntimeIdentifierGraph.json"
         }
       }
     }
