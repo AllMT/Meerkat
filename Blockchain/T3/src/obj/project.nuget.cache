@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "RHJbjsle+Y4VHeBF4t1uxNfc0oQ4ubM18tGcMBmI4OdBkTXuUjn5BXbIAgPCc8mZEDjRivmdtI7sMrPNAXLm/A==",
+  "success": true,
+  "projectFilePath": "C:\\WS\\Meerkat\\Blockchain\\T3\\src\\T3Contract.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\S\\.nuget\\packages\\neo.smartcontract.framework\\3.0.0-rc4\\neo.smartcontract.framework.3.0.0-rc4.nupkg.sha512"
+  ],
+  "logs": []
+}

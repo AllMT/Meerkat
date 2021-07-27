@@ -1,0 +1,69 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\WS\\Meerkat\\Blockchain\\T3\\src\\T3Contract.csproj": {}
+  },
+  "projects": {
+    "C:\\WS\\Meerkat\\Blockchain\\T3\\src\\T3Contract.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\WS\\Meerkat\\Blockchain\\T3\\src\\T3Contract.csproj",
+        "projectName": "T3Contract",
+        "projectPath": "C:\\WS\\Meerkat\\Blockchain\\T3\\src\\T3Contract.csproj",
+        "packagesPath": "C:\\Users\\S\\.nuget\\packages\\",
+        "outputPath": "C:\\WS\\Meerkat\\Blockchain\\T3\\src\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\S\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.myget.org/F/neo/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Neo.SmartContract.Framework": {
+              "target": "Package",
+              "version": "[3.0.0-rc4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

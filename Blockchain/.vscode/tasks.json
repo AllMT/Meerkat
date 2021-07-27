@@ -280,6 +280,41 @@
       },
       "problemMatcher": "$msCompile",
       "dependsOn": "TestContrac: restore"
+    },
+    {
+      "options": {
+        "cwd": "${workspaceFolder}/contracts/a"
+      },
+      "label": "a: restore-tools",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "tool",
+        "restore"
+      ],
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": []
+    },
+    {
+      "options": {
+        "cwd": "${workspaceFolder}/contracts/a"
+      },
+      "label": "a: build",
+      "command": "dotnet",
+      "type": "shell",
+      "args": [
+        "build",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      },
+      "problemMatcher": "$msCompile",
+      "dependsOn": "a: restore-tools"
     }
   ]
 }
